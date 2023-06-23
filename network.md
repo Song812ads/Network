@@ -72,7 +72,7 @@ Giải mã và nén dữ liệu là hoạt động chủ yếu ở lớp này.
 
 2. TCP/IP Network: 
 
-.
+
 https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13769-5.html
 
 
@@ -87,3 +87,4 @@ https://www.cisco.com/c/en/us/products/switches/what-is-a-wan-wide-area-network.
 
 ## Transport Layer_TCP Protocol_UDP Protocol:
 #
+dasdda
