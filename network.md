@@ -8,13 +8,47 @@ Mô hình OSI gồm 7 lớp chia ra làm 2 nhóm. 4 lớp bên dưới gọi là
 
 * Lớp 1 Physical Layer:
 
-Đây là lớp thực sự kết nối giữa diểm phát và điểm kết thúc. Đây là lớp mà các đặc tính của network được xác định và chuyển đổi bit được hoàn tất. Những bit này được cho là 1 signal. Về mặt cơ bản, đây là lớp mà các bit được truyền theo nhiều cách như network cable hay giao tiếp thông qua các hub. Các  tín hiệu điện tử được dùng với kết nối có dậy và tín hiệu dạng radio được dùng với các kết nối không dây.
+In order to define what is meant by a physical medium, let us reflect on the brief life of a bit. Consider a
+bit traveling from one end system, through a series of links and routers, to another end system. This
+poor bit gets kicked around and transmitted many, many times! The source end system first transmits
+the bit, and shortly thereafter the first router in the series receives the bit; the first router then transmits
+the bit, and shortly thereafter the second router receives the bit; and so on. Thus our bit, when traveling
+from source to destination, passes through a series of transmitter-receiver pairs. For each transmitter-
+receiver pair, the bit is sent by propagating electromagnetic waves or optical pulses across a physical
+medium.
 
-![Alt text](image-2.png)
+Physical layer có thể hiểu là một thành phần trung gian giữa các end system.
 
-![Alt text](image-3.png)
+Thông thuồng sẽ có 2 loại là Guided Media và Unguided media:
+* With guided
+media, the waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair copper
+wire, or a coaxial cable. 
+* With unguided media, the waves propagate in the atmosphere and in outer
+space, such as in a wireless LAN or a digital satellite channel.
+
+Một số Guided Media (cáp) thông thường sử dụng:
+* Twisted-pair copper wire: Đây là loại rẻ nhất và thông thường đươc sử dụng hiện tại. Data rates for
+LANs using twisted pair today range from 10 Mbps to 10 Gbps. Được sử dụng trong kết nối mạng LAN hay trong công nghệ DSL 
+* Coaxial Cable: Thường được sử dụng nhiều trong cáp TV hay cáp kết nối Internet, tốc độ đạt được 10Mbps
+![Alt text](image-12.png)
+* Fiber Optics: An optical fiber is a strand of glass that is as thin as a human hair. This strand is designed to carry information using pulses of light emitted by a laser. An optical fiber is a complex structure that consists of three layers.
+![Alt text](image-13.png)
+https://www.coherent.com/news/glossary/optical-fibers
+
+Một số Unguided Media thông thường được sử dụng:
+
+* Terrestial Radio Channels: 
+
+
+
+
+
 
 * Lớp 2 Data-Linker:
+
+DSL, FTTH, Switch Ethernet (AON), ONT(PON)
+
+WIFI, Ethernet, Zigbee, LoRaWan
 
 Đây là lớp trung gian trong việc truyền dữ liệu. Nó xác định cách định dạng data được truyền đi bởi lớp physical. Lớp này cung cấp kết nối node-to-node, được biết đến là lớp của địa chỉ MAC(bộ nhớ chỉ đọc của card mạng(NIC), địa chỉ phần cứng Ethernet (EHA)). <br>
 Lớp naỳ đóng gói dữ liệu thành layer 2 head và layer 2 tail. Data sau khi kết hợp head và  tail gọi là 1 frame. Do đó, nó chịu trách nhiệm tìm điểm đích kế tiếp của mạng. Ngoài ra, nó cũng cung cấp cơ chế xác định lỗi truyền <br>
