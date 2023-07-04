@@ -1,25 +1,16 @@
 ## OSI - LAN - WAN - TCP/IP Network:
 #
 
-1. Mô hình TCP/IP:
+1. Mô hình OSI:
 
-TCP/IP stands for Transmission Control Protocol/Internet Protocol and is a suite of communication protocols used to interconnect network devices on the internet. TCP/IP is also used as a communications protocol in a private computer network (an intranet or extranet).
+OSI(Open System Interface) là 1 mô hình diễn tả cách để thông tin từ phần mềm của 1 máy tính truyền qua phần mềm ở máy tính khác thông qua 1 lớp vật lý. Mô hình được ra đời năm 1984 và trở thành mô hình mang tính kiến trúc, được sử dụng chủ yếu trong học thuật để hiểu về vấn đề. Mô hình gồm 7 lớp. 
+![Alt text](image-3.png)
 
-Mô hình TCP/IP Network được chia ra gồm 4 lớp:
+* Lớp Physical:
 
-![Alt text](image-22.png)
-#
-* Lớp Acess Network (Physical Layer):
+ Tầng vật lý là hạ tầng cơ sở của mạng truyền thông, cung cấp phương tiện truyền tín hiệu thô sơ ở dạng bit.
 
-In order to define what is meant by a physical medium, let us reflect on the brief life of a bit. Consider a
-bit traveling from one end system, through a series of links and routers, to another end system.  The source end system first transmits
-the bit, and shortly thereafter the first router in the series receives the bit; the first router then transmits
-the bit, and shortly thereafter the second router receives the bit; and so on. Thus our bit, when traveling
-from source to destination, passes through a series of transmitter-receiver pairs. For each transmitter-
-receiver pair, the bit is sent by propagating electromagnetic waves or optical pulses across a physical
-medium.
-
-Thông thuồng sẽ có 2 loại là Guided Media và Unguided media:
+Thông thuồng sẽ có 2 loại kết nối là Guided Media và Unguided media:
 *  With guided
 media, the waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair copper
 wire, or a coaxial cable. 
@@ -31,70 +22,53 @@ Một số Guided Media (cáp) thông thường sử dụng:
 * Twisted-pair copper wire: Đây là loại rẻ nhất và thông thường đươc sử dụng hiện tại. Data rates for
 LANs using twisted pair today range from 10 Mbps to 10 Gbps. Được sử dụng trong kết nối mạng LAN hay trong công nghệ DSL 
 * Coaxial Cable: Thường được sử dụng nhiều trong cáp TV hay cáp kết nối Internet, tốc độ đạt được 10Mbps
-![Alt text](song/image-12.png)
+![Alt text](image-1.png)
 * Fiber Optics: An optical fiber is a strand of glass that is as thin as a human hair. This strand is designed to carry information using pulses of light emitted by a laser. An optical fiber is a complex structure that consists of three layers.
-![Alt text](song/image-13.png)
-https://www.coherent.com/news/glossary/optical-fibers<br><br>
-Một số Unguided Media thông thường được sử dụng:<br>
-Radio channels carry signals in the electromagnetic spectrum. They are an attractive medium because
-they require no physical wire to be installed, can penetrate walls, provide connectivity to a mobile user,
-and can potentially carry a signal for long distances.
+![Alt text](image-2.png)
+https://www.coherent.com/news/glossary/optical-fibers
+
+Một số Unguided Media thông thường được sử dụng:
 * Terrestrial radio channels can be broadly classified into three groups: those that operate over very short
 distance (e.g., with one or two meters); those that operate in local areas, typically spanning from ten to a few hundred meters.
 * Sattelite Radio Channels: A communication satellite links two or more Earth-based microwave transmitter/ receivers, known as
 ground stations. There are 2 types: geostationary satellites and low-earth orbiting. 
+
 #
 
-* Lớp Access Network (Data-Linker):
+* Lớp Data-Link:
 
-DSL, FTTH, Switch Ethernet (AON), ONT(PON)
+Lớp này đảm bảo cho thông tin truyền tải từ network-layer datagram mà không xảy ra lỗi. Nó cung cấp các phương thức đáng tin cậy để giao tiếp giữa các device. Nó chịu trách nhiệm cho việc định danh các thiết bị khi làm việc trên mạng LAN.
 
-WIFI, Ethernet, Zigbee, LoRaWan
+Các nhiệm vụ chính của lớp Data-link là:
 
-Đây là lớp trung gian trong việc truyền dữ liệu. Nó xác định cách định dạng data được truyền đi bởi lớp physical. Lớp này cung cấp kết nối node-to-node, với nodes bao gồm hosts, routers, switches, WIFI AP,...
-
-Consider sending a
-datagram from one of the wireless hosts to one of the servers. This datagram will actually pass through
-six links: a WiFi link between sending host and WiFi access point, an Ethernet link between the access
-point and a link-layer switch; a link between the link-layer switch and the router, a link between the two
-routers; an Ethernet link between the router and a link-layer switch; and finally an Ethernet link between
-the switch and the server. Over a given link, a transmitting node encapsulates the datagram in a link-
-layer frame and transmits the frame into the link
-
-3 nhiệm vụ chính của lớp Data-link là:
-
-* **Framing**. Almost all link-layer protocols encapsulate each network-layer datagram within a link-layer
+* **Framing**: Almost all link-layer protocols encapsulate each network-layer datagram within a link-layer
 frame before transmission over the link. A frame consists of a data field, in which the network-layer
 datagram is inserted, and a number of header fields.
-* **Link access**. A medium access control (MAC) protocol specifies the rules by which a frame is
+* **Link access**: A medium access control (MAC) protocol specifies the rules by which a frame is
 transmitted onto the link. For point-to-point links that have a single sender at one end of the link and
 a single receiver at the other end of the link, the MAC protocol is simple (or nonexistent)—the sender
 can send a frame whenever the link is idle. 
-* **Reliable delivery**. When a link-layer protocol provides reliable delivery service, it guarantees to
+* **Reliable delivery**: When a link-layer protocol provides reliable delivery service, it guarantees to
 move each network-layer datagram across the link without error. Recall that certain transport-layer
 protocols (such as TCP) also provide a reliable delivery service. Similar to a transport-layer reliable
 delivery service, a link-layer reliable delivery service can be achieved with acknowledgments and
 retransmissions
-* **Error detection and correction**. The link-layer hardware in a receiving node can incorrectly decide
-that a bit in a frame is zero when it was transmitted as a one, and vice versa. Such bit errors are
-introduced by signal attenuation and electromagnetic noise. Because there is no need to forward a
-datagram that has an error, many link-layer protocols provide a mechanism to detect such bit errors.
+* **Error Control**: Error control is achieved by adding a calculated value CRC (Cyclic Redundancy Check) that is placed to the Data link layer's trailer which is added to the message frame before it is sent to the physical layer. If any error seems to occurr, then the receiver sends the acknowledgment for the retransmission of the corrupted frames. 
 
-Một số ví dụ về các thiết bị và công cụ ở lơp DataLink: 
+Một số ví dụ về các thiết bị và công nghệ ở lơp DataLink: 
 
 _ DSL: 
 ![Alt text](song/image-14.png)
 
-_Ethernet Switch: 
-![Alt text](song/image-17.png)
-
 _ PON:
 ![Alt text](song/image-15.png)
+
+_Ethernet Switch: 
+![Alt text](song/image-17.png)
 #
 * Lớp Network:
 
-The primary role of the network layer is deceptively simple—to move packets from a sending host to a
-receiving host. To do so, two important network-layer functions can be identified:
+Đây là lớp xác định địa chỉ lớp 3 của các thiết bị, xác định vị trí các thiết bị trên mạng lưới. Nó cũng xác định đường đi ngắn nhất dựa vào các điều kiện của mạng lưới. Phương thức chủ yếu trong lớp này là ip và ipv6. Hai nhiệm vụ chính của lớp này là:
 
 * **Forwarding**. When a packet arrives at a router’s input link, the router must move the packet to the
 appropriate output link. 
@@ -123,60 +97,100 @@ then all packets are eventually delivered to the destination host.
 
 _ **Security**. The network layer could encrypt all datagrams at the source and decrypt them at the
 destination, thereby providing confidentiality to all transport-layer segments.
+
+2 thiết bị phổ biến sử dụng trong lớp này là Router và Switch layer-3
+
 #
 * Lớp Transport: 
 
-Internet makes two distinct transport-layer protocols available to the application layer.<br>
-One of these protocols is UDP (User Datagram Protocol), which provides an unreliable, connectionless
-service to the invoking application. <br>The second of these protocols is TCP (Transmission Control
-Protocol), which provides a reliable, connection-oriented service to the invoking application. When
-designing a network application, the application developer must specify one of these two transport
-protocols.
+Nhiệm vụ chính của lớp này là đảm bảo dữ liệu được truyền đi hoàn toàn. Nó nhận dữ liệu từ các lớp trên và chuyển thành dữ liệu nhỏ hơn gọi là segments.
 
-2 chức năng chính của lớp này là Multiplexing và Demultiplexing 
-![Alt text](song/image-21.png)
-![Alt text](song/image-9.png)
-#
+2 phương thức chủ yếu trong lớp này là TCP và UDP:
+
+_ TCP (Transmission Control Protocol): phương thức tiêu chuẩn để hệ thống có thể kết nối với Internet, và giao tiếp giữa các host. Các segments đươc chuyển dịch qua Internet theo nhiều đường đi và các trật tự khác nhau để đến điểm đích. Lớp này sẽ tiếp tục định hướng đường đi kế tiếp của packet.<br>
+_ UDP (User Datagram Protocol): Đây là phương thức không đáng tin cậy 
+
+Chức năng của lớp Transport:
+
+_ **Service-point addresssing**: máy tính có thể chạy nhiều chương trình cùng lúc, dữ liệu sẽ được truyền không chỉ là từ máy này sang máy khác mà có thể từ process này sang process khác. Lớp transport sẽ thêm vào header 1 địa chỉ gọi là service-point address hay là port address.<br>
+_ **Segmentation and reassembly**: khi lớp Transport nhận được dữ liệu từ cac lớp trên, chúng sẽ chia dữ liệu thành các segments nhỏ với các số đại diện cho các segment đó. Khi dữ liệu đến đích, các segments sẽ được tái kết hợp dựa trên số đại diện.<br>
+_ **Connection Control**: Transport layers cung cấp 2 dịch vụ là Connection-oriented và Connectionless. Connectionless sẽ xem các segment là các packet riêng biệt và truyền đến điểm đích. Connection-oriented sẽ kết nối với điểm đích trước rồi mới truyền các packets.<br>
+_ **Flow Control**: Chịu trách nhiệm cho việc truyền tải end-to-end. <br>
+_ **Error Control**: Lớp transport sẽ đảm bảo dữ liệu sẽ truyền đến điểm đích mà không xảy ra lỗi.
+
+* Lớp Session:
+
+Đây là lớp công bố, duy trì, động bộ 2 process đang truyền dữ liệu với nhau.
+
+Chức năng của lớp Session: <br>
+_ **Dialog Control**: Nó sẽ tạo ra 1 hộp thoại giao tiếp giữa các process
+![Alt text](image-4.png)<br>
+_ **Synchronization**: Lớp session sẽ thêm 1 checkpoint để kiểm tra. Nếu có lỗi diễn ra trong quá trình truyền, việc truyền sẽ được khởi động lại tại thời điểm checkpoint. Quá trình này được gọi là Synchronization and recovery.
+
+* Lớp Presentation: 
+
+Lớp này sẽ xác định các vấn đề về syntax và semantics của thông tin chuyển giữa 2 systems. Nó làm việc như 1 bộ giải mã thông tin và chuyển data từ 1 dạng file này sang file khác.
+
+Chức năng của lớp Presentation:
+
+_**Translation**: Process trong 2 hệ thống sẽ chuyển giao thông tin với nhau theo 1 form nhất định. <br>
+_**Encryption**: Đây là hoạt động cần thiết để duy trì bảo mật. Mã hóa là quá trình chuyển form dữ liệu gốc sang 1 form khác thuận tiện cho việc truyền thông tin hơn.<br>
+_**Compression**: Đây là bước giải mã các thông tin đã được mã hóa
+
 * Lớp Application:
 
-Đây là lớp gần nhất với người dùng. Đây là lớp tương tác giữa ứng dụng và các lớp bên dưới. Một vài giao thức được sử dụng trong lớp  này: Telnet, FTP, SMTP, HTTPS, SSL,..
+Đây là lớp gần nhất với người dùng, sẽ tạo ra 1 cửa sổ giao diện để người dùng truy cập các dịch vụ trên mạng. Nó chịu trách nhiệm cho tính minh bạch của mạng và phân bố các tài nguyên.
 
-2. Mô hình OSI: 
+Một số dịch vụ có thể kể đến như:<br>
+_**File transfer, access and management**: truy cập file trên remote
+_**Mail service**: Cung cấp chức năng chuyển tiếp email và lưu trữ
+_**Directory service**: cung cấp 1 kho dữ liệu phân tác và được dùng để cung cấp những thông tin global về các đối tượng.
 
-The open systems interconnection (OSI) model is a conceptual model created by the International Organization for Standardization which enables diverse communication systems to communicate using standard protocols. In plain English, the OSI provides a standard for different computer systems to be able to communicate with each other.
+2. Mô hình TCP/IP Network: 
 
-Although the modern Internet does not strictly follow the OSI Model (it more closely follows the simpler Internet protocol suite), the OSI Model is still very useful for troubleshooting network problems. Whether it’s one person who can’t get their laptop on the Internet, or a website being down for thousands of users, the OSI Model can help to break down the problem and isolate the source of the trouble. If the problem can be narrowed down to one specific layer of the model, a lot of unnecessary work can be avoided.
+The TCP/IP model defines how devices should transmit data between them and enables communication over networks and large distances. The model represents how data is exchanged and organized over networks.
 
-![Alt text](song/image-13.png)
+Mô hình gồm 4 hoặc 5 lớp. 2 lớp đầu có thể kết hợp lại gọi là lớp Access Network. Nhìn chung các lớp ở TCP/IP khá tương đồng về mặt chức năng với mô hình OSI. Một điểm nổi bật là các lớp TCP/IP lại củ thể hơn về mặt giao thức và cách vận hành.
 
-Nhìn chung, các lớp Physical, Data Link, Network, Transport đều giống với mô hình TCP/IP. Tuy nhiên, ở lớp Application được tách ra thêm 2 bước nữa là Presentation và Session.
+![Alt text](image-5.png)
 
-* Session Layer:
+* Lớp Access Network:
 
-The session layer provides for delimiting and synchronization of
-data exchange, including the means to build a checkpointing and recovery scheme.
+Nhìn chung lớp này khá tương đồng 2 lớp đầu tiên trong mô hình OSI. Một số phương thức được dùng trong lớp này như Ethernet, token ring, FDDI, X.25, frame relay,...
 
-* Presentation Layer: 
+* Lớp Network:
 
-The role of the presentation layer is to provide services that allow communicating
-applications to interpret the meaning of data exchanged. These services include data compression and
-data encryption (which are self-explanatory) as well as data description (which frees the applications
-from having to worry about the internal format in which data are represented/stored—formats that may
-differ from one computer to another) 
+Mục đích chính của lớp này là đưa dữ liệu packets từ bất kì network nào và nó sẽ đến vị trí đích mà nó cần phải đến.
+
+Một số phương thức để thực hiện điều này có thể kế dến:<br>
+_ IP protocol: phương thức này tương tự phương thức trong mô hình OSI<br>
+_ ARP (Address Resolution Protocol): đây là phương thức sẽ xác định địa chỉ vật lý (địa chỉ MAC) từ các địa chỉ IP
+_ ICMP (Internet Control Message Protocol): đây là phương thức mà host và router sẽ gửi thông báo dựa trên vấn đề của datagram được chuyển đi về nơi phát. Datagram sẽ được chuyển router-to-router cho đến khi đến điểm đích. Nếu trong quá trình vận chuyển có lỗi, router sẽ ngay lập tức báo lỗi về nguồn phát.
+
+* Lớp Transport:
+
+Cũng tương tự như mô hình OSI gồm 2 giao thức chính là TCP và UDP
+
+* Lớp Application:
+
+Nếu người dùng muốn tương tác với ứng nhiều hệ thống mạng, lớp này sẽ cung cấp các giao thức tương tác với ứng dụng như data encoding, data translation và provisions.
+
+Các phương thức được sử dụng chủ yếu trong lớp này là: 
+
+https://www.tutorialspoint.com/what-is-application-layer-protocols-in-tcp-ip
+
 
 * Sự khác biệt giữa mô hình TCP/IP và OSI:
-
-![Alt text](song/image-20.png)
 
 Đầu tiên, OSI là 1 mô hình mang tính lý thuyết và thiên về để tìm hiểu cách 1 máy tính nhận và xử lý dữ liệu thế nào. Mô hình TCP/IP là mô hình được sử dụng nhiều trong các giao thức liên quan đến kết nối mạng.
 
 Tiếp đến, số lớp Layer của mô hình TCP/IP ít hơn mô hình OSI. Đó là do sự kết hợp của nhiều lớp vào 1 lớp.
 Vơi việc nhiều lớp cần thiết hơn, yêu cầu về phần cứng và các công cụ cũng là nhiều hơn. Số bit và thông tin cần xử lý khi đó cũng ít hơn.
 
-![Alt text](song/image-25.png)
+![Alt text](image-29.png)
 (OSI Flow)
 
-![Alt text](song/image-24.png) (TCP/IP Flow)
+![Alt text](image-30.png) (TCP/IP Flow)
 
 Một điểm kém hơn giữa TCP/IP so với OSI, đó là TCP/IP cung cấp phương thức Connectionless(UDP) đồng thời Connection-Oriented(TCP) cho viêc truyền tải còn OSI là Connection-Oriented. Do đó, khi sử dụng phương thức TCP/IP người dùng cần cân nhắc phương thức phù hợp.
 
@@ -184,18 +198,14 @@ Mô hình OSI là mô hình ra sau mô hình TCP/IP và là 1 mô hình lý thuy
 
 3. LANs:
 
-Hình bên dưới là cấu trúc cơ bản của 1 mạng LAN với các kết nối giữa các máy tính, thiết bị, server vào cùng 1 switch.
-
-![Alt text](song/image-26.png)
-
-Switch có thể gọi là 1 đại diện cho mạng LAN, và là phương thức Data Link trong mô hình OSI. Chúng không thể hiểu những vấn đề như IP hay tương tự ở những lớp trên. Thay vào đó, chúng sẽ sử dụng link-layer addressing với phương thức Address Resolution Protocol(ARP).
+Mạng LAN (Local Network Area) hay còn gọi là mạng cục bộ. Mạng LAN được hiểu là sự kết hợp của nhiều các thiết bị được kết nối lại với nhau trong một hệ thống mạng tại một khu vực nhất định (ví dụ như công ty, phòng làm việc, trường học, nhà riêng,...). Việc ghép nối các thiết bị này trong cùng một hệ thống cho phép các thiết bị này có thể trao đổi dữ liệu với nhau một cách nhanh chóng và dễ dàng hơn (chia sẻ tập tin, hình ảnh, …).
 
 * Link Layer Addressing và ARP:
 
 a. Link Layer Addressing:
 
-Link-layer address(hay được gọi với LAN address, a
-physical address, or a MAC address) được lưu trong adapters (network interfaces).
+Link-layer address(hay được gọi với LAN address,
+physical address, MAC address) được lưu trong adapters (network interfaces).
 
 _ An adapter’s MAC address has a flat structure (as opposed to a hierarchical structure) and doesn’t
 change no matter where the adapter goes.<br> _When an adapter wants to send a frame to some destination adapter, the sending adapter inserts the
@@ -286,19 +296,7 @@ one or more wireless stations and a central base station, known as an access poi
 
 * Secured Wireless LANs:
 
-Có 2 phương thức được áp dụng là Wired Equivalent Privacy (WEP) và IEEE 802.11i 
-
-a. Wired Equivalent Privacy (WEP):
-
-The IEEE 802.11 WEP protocol was designed to provide authentication and data encryption
-between a host and a wireless access point using a symmetric shared key
-approach. Authentication is
-carried out as follows:
-1. A wireless host requests authentication by an access point.
-2. The access point responds to the authentication request with a 128-byte nonce value.
-3. The wireless host encrypts the nonce using the symmetric key that it shares with the access
-point.
-4. The access point decrypts the host-encrypted nonce.
+Trong các vấn đề bảo mật trong việc truyền dữ liệu, có 2 phương thức được sử dụng nhiều nhất hiện này là WEP và WPA (dựa theo tiêu chuẩn 802.11i)
 
 Thuật toán giải mã dữ liệu WEP:
 
@@ -308,12 +306,20 @@ Thuật toán giải mã dữ liệu WEP:
 
 4. WANs:
 
+
+![Alt text](image-24.png)
+
 a. Switched WANs:
 
 b. Point-to-point WANs:
 
-c. Point-to-multipoints WANs: 
+c. SD-WAN:
 
+https://www.networkacademy.io/ccie-enterprise/sdwan/why-do-we-need-sd-wan
+
+https://www.networkacademy.io/ccie-enterprise/sdwan/what-is-sd-wan
+
+https://www.researchgate.net/publication/365785923_Comparative_Study_of_WAN_Services_and_Technologies_in_Enterprise_Business_Networks
 
 
 ## Transport Layer_TCP Protocol_UDP Protocol:
