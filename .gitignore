@@ -1,2 +1,2 @@
 *.png
-!song/**
+!song/**.png
