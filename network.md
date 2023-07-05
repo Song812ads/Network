@@ -229,7 +229,7 @@ c. Cấu trúc mạng LANs (LANs topology):
 
 Trong cấu trúc dạng bus, các thiết bị sẽ đươc đặt trên 1 đường của thiết bị từ đầu đến điểm đích. Thông thường với 1 mạng LANs thì sẽ sử dụng đường dây cáp xoắn đôi.
 
-![Alt text](image-7.png)
+![Alt text](song/image-7.png)
 
 Ưu điểm: hoạt động tốt với 1 network nhỏ, dễ dàng sử dụng, ít tốn kém. Khi 1 thiết bị bị hỏng, những thiết bị khác sẽ không ảnh hưởng. Không cần quá nhiều cáp cho quá trình sử dụng
 
@@ -239,17 +239,17 @@ Nhược điểm: nếu cáp bị hỏng, toàn bộ network sẽ bị sập. ch
 
 Trong cấu trúc này, một packet nhỏ gọi là token sẽ được truyền theo cấu trúc vòng. Một trạm ở giữa sẽ là trạm trung tâm sẽ hoạt động như 1 là 1 hub để nhận thông tin từ 1 node và truyền đến các node còn lại.
 
-![Alt text](image-8.png)
+![Alt text](song/image-8.png)
 
 * Star topology:
 
 Cơ chế cũng giống như token-ring nhưng thay vì dữ liệu truyền theo vòng tròn thì dữ liệu sẽ truyền cho 1 thiết bị ở giữa và truyền tiếp cho các thiết bị còn lại.
 
-![Alt text](image-9.png)
+![Alt text](song/image-9.png)
 
 * Hierachial topology: 
 
-![Alt text](image-11.png)
+![Alt text](song/image-11.png)
 
 d. Một số công nghệ LANs hiện nay:
 
@@ -270,7 +270,7 @@ Ban đầu switch table sẽ hoàn toán trống.
 Với mỗi incoming frame, switch sẽ lưu vào MAC table địa chỉ MAC điểm gốc, số lượng kết nối và thời gian hiện tại. 
 Switch sẽ tự động xóa địa chỉ nếu địa chỉ đó không được nhận hoặc gửi trong 1 khoảng thời gian. 
 
-![Alt text](image-14.png)
+![Alt text](song/image-14.png)
 
 Đặc điểm của Switched LANs:
 
@@ -288,7 +288,7 @@ Virtual VLANs có thể giải quyết những vấn đề trên.
 
 VLANs cho phép nhiều virtual LANs được xác định trên 1 thiết bị LAN duy nhất. Host trong 1 nhóm VLAN có thể giao tiếp với nhau nếu các thành viên kết nối vào cùng 1 switch. 
 
-![Alt text](image-13.png)
+![Alt text](song/image-13.png)
 
 * Wireless LANs:
 
@@ -296,7 +296,7 @@ Wireless LANs là 1 trong những công nghệ kết nối mạng phổ biến n
 
 Cấu trúc 1 Wireless LANS dựa trân chuẩn kiến trúc 802.11 gồm BSS (basic service set) chứa 1 hay nhiều trạm kết nối và 1 tạm trung tâm gọi là AP (Access point)
 
-![Alt text](image-12.png)
+![Alt text](song/image-12.png)
 
 * Secured Wireless LANs:
 
@@ -322,19 +322,19 @@ WANs hoạt đông dựa trên 2 kĩ thuật Packet-switching và Circuit-Switch
 
 
 
-![Alt text](image-15.png)
+![Alt text](song/image-15.png)
 
 * Packet Swirching:
 
 
 
-![Alt text](image-16.png)
+![Alt text](song/image-16.png)
 
 a. Switched WANs:
 
 Trong mạng Switched WAN, dữ liệu sẽ được chuyển từ node này sang node khác thông qua các node trung gian trog mạng. 
 
-![Alt text](image-17.png)
+![Alt text](song/image-17.png)
 
 Nếu 1 node muốn gửi sang node khác, 1 đường vận chuyển dữ liệu cần phải được công bố và dữ liệu sẽ được truyền theo dường đó. 
 
@@ -350,17 +350,17 @@ Các kiểu kết nối point-to-point WAN:
 
 Quá trình upload sẽ bao gồm việc lấy mẫu và gửi dữ liệu lên server
 
-![Alt text](image-18.png)
+![Alt text](song/image-18.png)
 
 Quá trinh lấy dữ liệu có thể lấy trực tiếp không cần qua lấy mẫu
 
-![Alt text](image-19.png)
+![Alt text](song/image-19.png)
 
 * DSL Technology:
 
 Đây là công nghệ sử dụng 1 bộ chia để tách những tác vụ nơi cung cấp cho từng thiết bi nhận dữ liệu.
 
-![Alt text](image-21.png)
+![Alt text](song/image-21.png)
 
 * Cable Modem: 
 
@@ -368,7 +368,7 @@ Cable modem sẽ kết nối máy tính thông qua local cable TV network.
 
 Thiết bị sẽ dùng kĩ thuật QAM hay DQPSK để tách sóng thông tin cần truyền cho từng thiết bị
 
-![Alt text](image-22.png)
+![Alt text](song/image-22.png)
 
 * SONET(Synchronous Optical Network):
 
