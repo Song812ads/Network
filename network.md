@@ -4,7 +4,7 @@
 1. Mô hình OSI:
 
 OSI(Open System Interface) là 1 mô hình diễn tả cách để thông tin từ phần mềm của 1 máy tính truyền qua phần mềm ở máy tính khác thông qua 1 lớp vật lý. Mô hình được ra đời năm 1984 và trở thành mô hình mang tính kiến trúc, được sử dụng chủ yếu trong học thuật để hiểu về vấn đề. Mô hình gồm 7 lớp. 
-![Alt text](image-3.png)
+![Alt text](song/image-3.png)
 
 * Lớp Physical:
 
@@ -22,9 +22,9 @@ Một số Guided Media (cáp) thông thường sử dụng:
 * Twisted-pair copper wire: Đây là loại rẻ nhất và thông thường đươc sử dụng hiện tại. Data rates for
 LANs using twisted pair today range from 10 Mbps to 10 Gbps. Được sử dụng trong kết nối mạng LAN hay trong công nghệ DSL 
 * Coaxial Cable: Thường được sử dụng nhiều trong cáp TV hay cáp kết nối Internet, tốc độ đạt được 10Mbps
-![Alt text](image-1.png)
+![Alt text](song/image-1.png)
 * Fiber Optics: An optical fiber is a strand of glass that is as thin as a human hair. This strand is designed to carry information using pulses of light emitted by a laser. An optical fiber is a complex structure that consists of three layers.
-![Alt text](image-2.png)
+![Alt text](song/image-2.png)
 https://www.coherent.com/news/glossary/optical-fibers
 
 Một số Unguided Media thông thường được sử dụng:
@@ -57,14 +57,8 @@ retransmissions
 
 Một số ví dụ về các thiết bị và công nghệ ở lơp DataLink: 
 
-_ DSL: 
-![Alt text](song/image-14.png)
-
 _ PON:
 ![Alt text](song/image-15.png)
-
-_Ethernet Switch: 
-![Alt text](song/image-17.png)
 #
 * Lớp Network:
 
@@ -120,11 +114,11 @@ _ **Error Control**: Lớp transport sẽ đảm bảo dữ liệu sẽ truyền
 
 * Lớp Session:
 
-Đây là lớp công bố, duy trì, động bộ 2 process đang truyền dữ liệu với nhau.
+Đây là lớp công bố, duy trì, động bộ 2 process đang truyền dữ liệu với nhau. Quá trình công bố sự truy cập giống như 1 quá trình log in
 
 Chức năng của lớp Session: <br>
 _ **Dialog Control**: Nó sẽ tạo ra 1 hộp thoại giao tiếp giữa các process
-![Alt text](image-4.png)<br>
+![Alt text](song/image-4.png)<br>
 _ **Synchronization**: Lớp session sẽ thêm 1 checkpoint để kiểm tra. Nếu có lỗi diễn ra trong quá trình truyền, việc truyền sẽ được khởi động lại tại thời điểm checkpoint. Quá trình này được gọi là Synchronization and recovery.
 
 * Lớp Presentation: 
@@ -152,7 +146,7 @@ The TCP/IP model defines how devices should transmit data between them and enabl
 
 Mô hình gồm 4 hoặc 5 lớp. 2 lớp đầu có thể kết hợp lại gọi là lớp Access Network. Nhìn chung các lớp ở TCP/IP khá tương đồng về mặt chức năng với mô hình OSI. Một điểm nổi bật là các lớp TCP/IP lại củ thể hơn về mặt giao thức và cách vận hành.
 
-![Alt text](image-5.png)
+![Alt text](song/image-5.png)
 
 * Lớp Access Network:
 
@@ -175,10 +169,13 @@ Cũng tương tự như mô hình OSI gồm 2 giao thức chính là TCP và UDP
 
 Nếu người dùng muốn tương tác với ứng nhiều hệ thống mạng, lớp này sẽ cung cấp các giao thức tương tác với ứng dụng như data encoding, data translation và provisions.
 
-Các phương thức được sử dụng chủ yếu trong lớp này là: 
-
-https://www.tutorialspoint.com/what-is-application-layer-protocols-in-tcp-ip
-
+Các phương thức được sử dụng chủ yếu trong lớp này là:<br>
+_ TELNET(Terminal Emulation Protocol): telnet server sẽ đóng vai trò như 1 host để công bố các kết nối với các remote gọi là caca telnet client. Người dùng có thể truy cập vào các remote thông qua telnet.<br>
+_ HTTP(Hypertext Transfer Protocol): phương thức này dựa trên giao thức WWW(World Wide Web), chúng ta có thể cho rằng những phần mềm cho phép người dùng truy cập vào các trang web như IE, Firefox như 1 client và các ứng dụng trên các trang web là 1 server, khi đó người dùng sẽ đưa ra yêu cầu đến trang web thông qua phần mềm ấy thì server sẽ phản hồi lại kết quả tương đương.<br>
+_ FTP (File Transfer Protocol): phương thức dùng để truyền file giữa 2 máy chủ, host chạy phần mềm FTP sẽ là 1 server máy chủ còn lại sẽ là client. <br>
+_ SMTP (Simple mail transport Protocol): được dùng để gửi email. <br>
+_ DNS (Domain Name Server): DNS là 1 phương thức thay thế host device ip thành 1 tên goi mới.<br>
+_ DHCP(Dynamic Host Configuration Protocol): 
 
 * Sự khác biệt giữa mô hình TCP/IP và OSI:
 
@@ -187,18 +184,17 @@ https://www.tutorialspoint.com/what-is-application-layer-protocols-in-tcp-ip
 Tiếp đến, số lớp Layer của mô hình TCP/IP ít hơn mô hình OSI. Đó là do sự kết hợp của nhiều lớp vào 1 lớp.
 Vơi việc nhiều lớp cần thiết hơn, yêu cầu về phần cứng và các công cụ cũng là nhiều hơn. Số bit và thông tin cần xử lý khi đó cũng ít hơn.
 
-![Alt text](image-29.png)
-(OSI Flow)
-
-![Alt text](image-30.png) (TCP/IP Flow)
-
 Một điểm kém hơn giữa TCP/IP so với OSI, đó là TCP/IP cung cấp phương thức Connectionless(UDP) đồng thời Connection-Oriented(TCP) cho viêc truyền tải còn OSI là Connection-Oriented. Do đó, khi sử dụng phương thức TCP/IP người dùng cần cân nhắc phương thức phù hợp.
 
 Mô hình OSI là mô hình ra sau mô hình TCP/IP và là 1 mô hình lý thuyết. OSI có thể là 1 mô hình khi phát triển đến tối ưu sẽ là hiệu quả hơn TCP/IP. Tuy nhiên, việc nghiên cứu và tạo ra thêm các phần cứng phù hợp với các yêu cầu của các lớp của OSI có thể sẽ đòi hỏi nhiều yêu tài nguyên hơn nhưng không chắc mang lại nhiều hiêu quả hơn TCP/IP.
 
 3. LANs:
 
-Mạng LAN (Local Network Area) hay còn gọi là mạng cục bộ. Mạng LAN được hiểu là sự kết hợp của nhiều các thiết bị được kết nối lại với nhau trong một hệ thống mạng tại một khu vực nhất định (ví dụ như công ty, phòng làm việc, trường học, nhà riêng,...). Việc ghép nối các thiết bị này trong cùng một hệ thống cho phép các thiết bị này có thể trao đổi dữ liệu với nhau một cách nhanh chóng và dễ dàng hơn (chia sẻ tập tin, hình ảnh, …).
+Mạng LAN (Local Network Area) hay còn gọi là mạng cục bộ. Mạng LAN được hiểu là sự kết hợp của nhiều các thiết bị được kết nối lại với nhau trong một hệ thống mạng tại một khu vực nhất định (ví dụ như công ty, phòng làm việc, trường học, nhà riêng,...). Việc ghép nối các thiết bị này trong cùng một hệ thống cho phép các thiết bị này có thể trao đổi dữ liệu với nhau một cách nhanh chóng và dễ dàng hơn (chia sẻ tập tin, hình ảnh, …). Mạng LANs có tốc độ truyền tải cao hơn và chính xác hơn  các mạng khác nhưng chỉ hoạt động trong phạm vi nhỏ.
+
+a. Tổng quan cách hoạt động mạng LANs:
+
+Mạng LANs vận hành dựa trên việc vận chuyển các dữ liệu giữa các thiết bị thông qua địa chỉ vật lý. 2 phương thưc sau sẽ cụ thể hơn vấn đề này.
 
 * Link Layer Addressing và ARP:
 
@@ -207,22 +203,13 @@ a. Link Layer Addressing:
 Link-layer address(hay được gọi với LAN address,
 physical address, MAC address) được lưu trong adapters (network interfaces).
 
-_ An adapter’s MAC address has a flat structure (as opposed to a hierarchical structure) and doesn’t
-change no matter where the adapter goes.<br> _When an adapter wants to send a frame to some destination adapter, the sending adapter inserts the
-destination adapter’s MAC address into the frame and then sends the frame into the LAN.<br>_Thus, an adapter may receive a frame that isn’t
-addressed to it. Thus, when an adapter receives a frame, it will check to see whether the destination
-MAC address in the frame matches its own MAC address.<br> _If there is a match, the adapter extracts the
-enclosed datagram and passes the datagram up the protocol stack. If there isn’t a match, the adapter
-discards the frame, without passing the network-layer datagram up.<br> _
-However, sometimes a sending adapter does want all the other adapters on the LAN to receive and
-process the frame it is about to send. In this case, the sending adapter inserts a special **MAC broadcast
-address** into the destination address field of the frame
+Một vài đăc điểm của địa chỉ MAC:
+
+_ Địa chỉ MAC sẽ không thay đổi khi ta thay đổi vị tr1 của thiết bị<br> _ Khi adapter muốn gửi địa chỉ đến 1 thiết bị nào đó, nó cần thêm địa chỉ MAC của thiết bị đó vào frame<br>_ Thông thường, các dữ liệu sẽ được gửi theo kiểu truyền toàn bộ broadcast do đó khi thiết bị nhận được dữ liệu, nó sẽ kiểm tra địa chỉ MAC đích của frame có giống với địa chỉ của thiết bị hay không để nhận.<br> _ Nếu như đúng đĩa chỉ MAC thì adapter sẽ trích xuất dữ liệu 
 
 b. ARP:
 
-Because there are both network-layer addresses  and link-layer
-addresses, there is a need to translate between them. For the Internet, this is
-the job of the Address Resolution Protocol (ARP).
+Do 1 thiết bị có thể tồn tại đĩa chỉ lớp 2 hoặc lớp 3 nên việc hiểu được địa chỉ lớp 3 của 1 thiết bị là cần thiết và người ta sẽ cố gắng để đưa về địa chỉ lớp 2. Do đó, lớp 2 này sẽ tồn tại 1 phương thức ARP.
 
 (*Lý do cần sử dụng và chuyển hóa sang địa chỉ MAC: do tồn tại nhiều loại network-layer address, tốn dung lượng RAM khi phải lưu và thay đổi khi thay đổi vị trí)
 
@@ -230,47 +217,66 @@ Quá trình thực hiện: <br>
 _ Ban đầu, sau khi ARP resolve địa chỉ IP từ điểm gốc, 1 ARP packet sẽ được gửi đi từ điểm bắt đầu đến điểm kết thúc, để xác định địa chỉ MAC của điểm đich. Những địa chỉ MAC này sẽ được lưu vào ARP table để tiếp tục sử dụng trong 1 thời gian TTL<br>
 _ Sau khi nhận được địa chỉ đích từ các điểm đến, adapter sẽ tạo 1 link-layer frame chứa MAC address điểm đích và gửi frame ấy lên LAN.
 
-Một vài điểm lưu vê ARP:<br>
+Một vài điểm lưu ý vê ARP:<br>
 _ ARP message sẽ được gửi trong 1 broadcast frame và trả lời với 1 standard frame.  <br>_ ARP is plug-and-play; that is, an ARP
 table gets built automatically—it doesn’t have to be configured by a system administrator. <br>_ If a host
 becomes disconnected from the subnet, its entry is eventually deleted from the other ARP tables in the
 subnet.
 
+c. Cấu trúc mạng LANs (LANs topology):
+
+* Bus topology: 
+
+Trong cấu trúc dạng bus, các thiết bị sẽ đươc đặt trên 1 đường của thiết bị từ đầu đến điểm đích. Thông thường với 1 mạng LANs thì sẽ sử dụng đường dây cáp xoắn đôi.
+
+![Alt text](image-7.png)
+
+Ưu điểm: hoạt động tốt với 1 network nhỏ, dễ dàng sử dụng, ít tốn kém. Khi 1 thiết bị bị hỏng, những thiết bị khác sẽ không ảnh hưởng. Không cần quá nhiều cáp cho quá trình sử dụng
+
+Nhược điểm: nếu cáp bị hỏng, toàn bộ network sẽ bị sập. chậm và không thích hợp cho các mạng lưới lớn hơn. Bảo mật thấp do khi 1 thông tin được gửi đi tất cả các thiết bị sẽ đều nhận được. 
+
+* Token-ring topology: 
+
+Trong cấu trúc này, một packet nhỏ gọi là token sẽ được truyền theo cấu trúc vòng. Một trạm ở giữa sẽ là trạm trung tâm sẽ hoạt động như 1 là 1 hub để nhận thông tin từ 1 node và truyền đến các node còn lại.
+
+![Alt text](image-8.png)
+
+* Star topology:
+
+Cơ chế cũng giống như token-ring nhưng thay vì dữ liệu truyền theo vòng tròn thì dữ liệu sẽ truyền cho 1 thiết bị ở giữa và truyền tiếp cho các thiết bị còn lại.
+
+![Alt text](image-9.png)
+
+* Hierachial topology: 
+
+![Alt text](image-11.png)
+
+d. Một số công nghệ LANs hiện nay:
+
 * Ethernet: 
 
 Ethernet là công nghệ LAN tốc độ cao sớm nhất được ra mắt, với giá thành rẻ và không phức tạp. Những sản phầm của Ethernet càng ngày càng cải thiện về data rates. 
-
-Cấu trúc 1 frame của Ethernet: 
-![Alt text](song/image-27.png)
 
 * Switched LANs:
 
 Cách Switch vận hành: <br>
 _ Forwarding and filtering: 
 
-Filtering is the switch function that determines whether a frame should be forwarded to some interface
-or should just be dropped. <br>Forwarding is the switch function that determines the interfaces to which a
-frame should be directed, and then moves the frame to those interfaces.
+Filtering là 1 họat động của switch xác định frame sẽ được chuyển tiếp tới 1 thiết bị khác hay sẽ bị xác định là lỗi <br>Forwarding là hoạt động switch sau khi xác định là có thể truyền đi và xác định thiết bị cần truyền và truyền tới.
 
 _ Self Learning: 
 
-Ban đầu switch table sẽ hoàn toán trống <br>
-Với mỗi incoming frame, switch sẽ lưu vào MAC table (1)địa chỉ MAC điểm gốc, (2) số lượng kết nối (3) thời gian hiện tại. 
-![Alt text](song/image-28.png)
+Ban đầu switch table sẽ hoàn toán trống. 
+Với mỗi incoming frame, switch sẽ lưu vào MAC table địa chỉ MAC điểm gốc, số lượng kết nối và thời gian hiện tại. 
 Switch sẽ tự động xóa địa chỉ nếu địa chỉ đó không được nhận hoặc gửi trong 1 khoảng thời gian. 
+
+![Alt text](image-14.png)
 
 Đặc điểm của Switched LANs:
 
-_ **Elimination of Collision**: The switches buffer frames and never transmit more than one frame on
-a segment at any one time. As with a router, the maximum aggregate throughput of a switch is the
-sum of all the switch interface rates. Thus, switches provide a significant performance improvement
-over LANs with broadcast links.<br>
-_ **Heterogenous links**: Because a switch isolates one link from another, the different links in the
-LAN can operate at different speeds and can run over different media.<br>
-_ **Management**: For example, if an adapter malfunctions and continually
-sends Ethernet frames (called a jabbering adapter), a switch can detect the problem and internally
-disconnect the malfunctioning adapter.
-
+_ **Elimination of Collision**: Khi có nhiều adapters cùng phát dữ liệu, switch sẽ không bao giờ chuyển tiếp nhiều hơn 1 frame tại 1 thời điểm. Điều này giúp tránh hiện tượng collsion <br>
+_ **Heterogenous links**: Do switch có khả năng isolate link, do đó, các link khác nhau có thể truyền với tốc độ khác nhau<br>
+_ **Management**: khi nhiều adapter truyền dữ liệu cùng lúc, switch có khả năng xác định dữ liệu nào đang bị lỗi và dừng nhận dữ liệu từ adapter đó.
 
 * Virtual LANs:
 
@@ -280,19 +286,17 @@ _ **Inefficient use of switches**: xảy ra khi số lượng người là quá 
 _ **Managing errors**: Khi có nhiều nhóm và các thành viên, việc chuyển giao các thành viên cũng sẽ dẫn đến việc thay đổi ở Switch cho phù hợp.<br>
 Virtual VLANs có thể giải quyết những vấn đề trên. 
 
-VLANs allows multiple virtual local
-area networks to be defined over a single physical local area network infrastructure. Hosts within a
-VLAN communicate with each other as if they (and no other hosts) were connected to the switch. In a
-port-based VLAN, the switch’s ports (interfaces) are divided into groups by the network manager. Each
-group constitutes a VLAN, with the ports in each VLAN forming a broadcast domain.
+VLANs cho phép nhiều virtual LANs được xác định trên 1 thiết bị LAN duy nhất. Host trong 1 nhóm VLAN có thể giao tiếp với nhau nếu các thành viên kết nối vào cùng 1 switch. 
+
+![Alt text](image-13.png)
 
 * Wireless LANs:
 
 Wireless LANs là 1 trong những công nghệ kết nối mạng phổ biến nhất hiện nay với tiêu chuẩn IEEE 802.11 hay được biết đến là Wifi
 
-The
-fundamental building block of the 802.11 architecture is the basic service set (BSS). A BSS contains
-one or more wireless stations and a central base station, known as an access point (AP) 
+Cấu trúc 1 Wireless LANS dựa trân chuẩn kiến trúc 802.11 gồm BSS (basic service set) chứa 1 hay nhiều trạm kết nối và 1 tạm trung tâm gọi là AP (Access point)
+
+![Alt text](image-12.png)
 
 * Secured Wireless LANs:
 
@@ -302,25 +306,77 @@ Thuật toán giải mã dữ liệu WEP:
 
 ![Alt text](song/image-22.png)
 
+Cơ chế WPA:
+
 ![Alt text](song/image-23.png)
 
 4. WANs:
 
+WANs là 1 mạng lưới giao tiếp giữa các thiết bị trong khoảng cách xa về mặt địa lý. 
 
-![Alt text](image-24.png)
+a. Các kĩ thuật sử dụng trong mạng LANs:
+
+WANs hoạt đông dựa trên 2 kĩ thuật Packet-switching và Circuit-Switching
+
+* Circuit Switching:
+
+
+
+![Alt text](image-15.png)
+
+* Packet Swirching:
+
+
+
+![Alt text](image-16.png)
 
 a. Switched WANs:
 
-b. Point-to-point WANs:
+Trong mạng Switched WAN, dữ liệu sẽ được chuyển từ node này sang node khác thông qua các node trung gian trog mạng. 
+
+![Alt text](image-17.png)
+
+Nếu 1 node muốn gửi sang node khác, 1 đường vận chuyển dữ liệu cần phải được công bố và dữ liệu sẽ được truyền theo dường đó. 
+
+Một vài ví dụ về switched WANs có thể kế đến là X.25, Frame Relay, ATM(Asynchronous Transmission Mode)
+
+b. Point-to-point WAN:
+
+Point-to-point WAN là 1 loại mạng công bố kết nối giữa 2 thiết bị sử dụng 1 leased line
+
+Các kiểu kết nối point-to-point WAN:
+
+* Kiểu truyền thống:
+
+Quá trình upload sẽ bao gồm việc lấy mẫu và gửi dữ liệu lên server
+
+![Alt text](image-18.png)
+
+Quá trinh lấy dữ liệu có thể lấy trực tiếp không cần qua lấy mẫu
+
+![Alt text](image-19.png)
+
+* DSL Technology:
+
+Đây là công nghệ sử dụng 1 bộ chia để tách những tác vụ nơi cung cấp cho từng thiết bi nhận dữ liệu.
+
+![Alt text](image-21.png)
+
+* Cable Modem: 
+
+Cable modem sẽ kết nối máy tính thông qua local cable TV network. 
+
+Thiết bị sẽ dùng kĩ thuật QAM hay DQPSK để tách sóng thông tin cần truyền cho từng thiết bị
+
+![Alt text](image-22.png)
+
+* SONET(Synchronous Optical Network):
+
+* PPP:
+
+* MPLS:
 
 c. SD-WAN:
-
-https://www.networkacademy.io/ccie-enterprise/sdwan/why-do-we-need-sd-wan
-
-https://www.networkacademy.io/ccie-enterprise/sdwan/what-is-sd-wan
-
-https://www.researchgate.net/publication/365785923_Comparative_Study_of_WAN_Services_and_Technologies_in_Enterprise_Business_Networks
-
 
 ## Transport Layer_TCP Protocol_UDP Protocol:
 #
