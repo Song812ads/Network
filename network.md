@@ -304,14 +304,6 @@ Cấu trúc 1 Wireless LANS dựa trân chuẩn kiến trúc 802.11 gồm BSS (b
 
 Trong các vấn đề bảo mật trong việc truyền dữ liệu, có 2 phương thức được sử dụng nhiều nhất hiện này là WEP và WPA (dựa theo tiêu chuẩn 802.11i)
 
-Thuật toán giải mã dữ liệu WEP:
-
-![Alt text](song/image-22.png)
-
-Cơ chế WPA:
-
-![Alt text](song/image-23.png)
-
 4. WANs:
 
 WANs là 1 mạng lưới giao tiếp giữa các thiết bị trong khoảng cách xa về mặt địa lý. 
