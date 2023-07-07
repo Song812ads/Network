@@ -58,7 +58,8 @@ retransmissions
 Một số ví dụ về các thiết bị và công nghệ ở lơp DataLink: 
 
 _ PON:
-![Alt text](song/image-15.png)
+![Alt text](song/image-28.png)
+
 #
 * Lớp Network:
 
@@ -70,7 +71,7 @@ appropriate output link.
 sender to a receiver.
 
 2 nhiệm vụ này được thực hiện thông qua forwarding table với 2 tác vụ khác là Control plane (routing) và Data plane (forwarding).
-![Alt text](song/image-20.png)
+![Alt text](song/image-29.png)
 https://blog.ipspace.net/2013/08/management-control-and-data-planes-in.html
 
 Mục đích cần phải đạt được trong lớp này là:
@@ -158,7 +159,7 @@ Mục đích chính của lớp này là đưa dữ liệu packets từ bất k�
 
 Một số phương thức để thực hiện điều này có thể kế dến:<br>
 _ IP protocol: phương thức này tương tự phương thức trong mô hình OSI<br>
-_ ARP (Address Resolution Protocol): đây là phương thức sẽ xác định địa chỉ vật lý (địa chỉ MAC) từ các địa chỉ IP
+_ ARP (Address Resolution Protocol): đây là phương thức sẽ xác định địa chỉ vật lý (địa chỉ MAC) từ các địa chỉ IP<br>
 _ ICMP (Internet Control Message Protocol): đây là phương thức mà host và router sẽ gửi thông báo dựa trên vấn đề của datagram được chuyển đi về nơi phát. Datagram sẽ được chuyển router-to-router cho đến khi đến điểm đích. Nếu trong quá trình vận chuyển có lỗi, router sẽ ngay lập tức báo lỗi về nguồn phát.
 
 * Lớp Transport:
