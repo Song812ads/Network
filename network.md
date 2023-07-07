@@ -11,11 +11,9 @@ OSI(Open System Interface) là 1 mô hình diễn tả cách để thông tin t�
  Tầng vật lý là hạ tầng cơ sở của mạng truyền thông, cung cấp phương tiện truyền tín hiệu thô sơ ở dạng bit.
 
 Thông thuồng sẽ có 2 loại kết nối là Guided Media và Unguided media:
-*  With guided
-media, the waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair copper
-wire, or a coaxial cable. 
-* With unguided media, the waves propagate in the atmosphere and in outer
-space, such as in a wireless LAN or a digital satellite channel.
+*  Với guided
+media, sóng sẽ được đưa qua một lớp trung gian rắn như cáp quang, cắp đồng trục, cáp xoắn đôi,...
+* Với unguided media, sóng sẽ trường trong không khí và không gian như mạng LAN không giây hay các kênh vệ tinh.
 
 Một số Guided Media (cáp) thông thường sử dụng:
 
@@ -28,8 +26,8 @@ LANs using twisted pair today range from 10 Mbps to 10 Gbps. Được sử dụn
 https://www.coherent.com/news/glossary/optical-fibers
 
 Một số Unguided Media thông thường được sử dụng:
-* Terrestrial radio channels can be broadly classified into three groups: those that operate over very short
-distance (e.g., with one or two meters); those that operate in local areas, typically spanning from ten to a few hundred meters.
+* Terrestrial radio channels có thể chia làm 3 loại: truyền trong khoảng cách nhỏ, truyền trong khu vực lân cận và truyền trong khoảng từ 10 đến vài trăm m
+
 * Sattelite Radio Channels: A communication satellite links two or more Earth-based microwave transmitter/ receivers, known as
 ground stations. There are 2 types: geostationary satellites and low-earth orbiting. 
 
@@ -60,6 +58,9 @@ Một số ví dụ về các thiết bị và công nghệ ở lơp DataLink:
 _ PON:
 ![Alt text](song/image-28.png)
 
+_ ATM:
+
+![Alt text](song/image-30.png)
 #
 * Lớp Network:
 
