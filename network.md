@@ -370,13 +370,33 @@ Thiết bị sẽ dùng kĩ thuật QAM hay DQPSK để tách sóng thông tin c
 
 ![Alt text](song/image-22.png)
 
-* SONET(Synchronous Optical Network):
+* SONET(Synchronous Optical Network): đây là phương thức chuẩn chuyển 1 lượng lớn dữ liệu qua cáp quang
+
+Cấu trúc của 1 mạng SONET:
+
+![Alt text](song/image-23.png)
 
 * PPP:
 
+Đây là phương thức sử dụng thông thường nhất nếu người dùng muốn két nối internet tại nhà với việc truyền tải dữ liệu lớn và tốc độ cao. Nếu người dùng muốn truy cập vào 1 server, phương thức này sẽ công bố liên kết đó. Chức năng chủ yếu của PPP là đóng gói, nó sẽ đóng gói dữ liệu thành 1 data link frame. Tuy nhiên, phương pháp này không có khả năng flow control và 1 cơ chế check lỗi khá đơn giản
+
+Quy trình của 1 PPP:
+
+![Alt text](song/image-24.png)
+
 * MPLS:
 
+MPLS là phương pháp chủ yếu trong mạng WAN trong việc truyền nhiều thiết bị này sang nhiều thiết bị khác, khác với những phương thức khác thay vì cần xác định địa chỉ điểm đầu và kết thúc thì phương thức này sẽ xác định đường đi thông qua các label cho các router.
+
+![Alt text](song/image-27.png)
+
 c. SD-WAN:
+
+Đây là mạng lưới dùng sử dụng khá phổ biến hiện nay với việc áp dụng công nghệ Cloud trực tiếp vào trong network.
+
+Các phương thức truyền thống khác của WAN không bao giờ được thiết kế cho Cloud (backhaul), SD WAN cung cấp những phương thức để các doanh nghiệp có thể gửi dữ liệu trực tiếp lên internet
+
+![Alt text](song/image-26.png)
 
 ## Transport Layer_TCP Protocol_UDP Protocol:
 #
