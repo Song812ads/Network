@@ -176,3 +176,143 @@ Cấu trúc 1 socket thông thường:
 
 ![Alt text](image-7.png)
 
+```
+int bind(int, struct sockaddr *, socklen_t); : trỏ tới 1 địa chỉ socket
+VD:
+struct sockaddr_in serv;
+bind(sockfd, (struct sockaddr *) &serv, sizeof(serv));
+```
+
+Cấu trúc địa chỉ IPv6:
+
+![Alt text](image-8.png)
+
+Three functions, bind,connect, and sendto, pass a socket address structure from the
+process to the kernel.
+
+```
+connect(sockfd, (SA* )&serv, sizeof(serv));
+```
+
+Four functions, accept,recvfrom,getsockname, and getpeername, pass a socket
+address structure from the kernel to the process
+```
+struct sockaddr_un cli; 
+socklen_t len;
+len = sizeof(cli); 
+getpeername(unixfd, (SA *) &cli, &len);
+```
+
+Consider a 16-bit integer that is made up of 2 bytes. There are two ways to store the two
+bytes in memory: with the low-order byte at the starting address, known as little-endian byte
+order, or with the high-order byte at the starting address, known as big-endian byte order.
+
+Little-endian: càng về sau tốn càng ít, big-endian: càng về sau tốn càng nhiều bộ nhớ
+
+```
+void bzero(void *dest,size_tnbytes); : set specific number of bytes to zero in dest, thường dùng để initialize socket add
+void bcopy(const void *src,void *dest,size_tnbytes); : move specific number of bytes from src to dest
+int bcmp(const void *ptr1,const void *ptr2,size_tnbytes); : so sánh 2 chuỗi. trả về 0 nếu giống 1 nếu khác
+```
+
+```
+void *memset(void *dest,intc,size_tlen); : set the specific number of byte to C
+void *memcpy(void *dest,const void *src,size_tnbytes); : sao chép nhưng pointer 2 add sẽ hoán đổi
+int memcmp(const void *ptr1,const void *ptr2,size_tnbytes); : 
+```
+
+```
+int inet_aton(const char *strptr,struct in_addr *addrptr); : chuyển kí tự trỏ bởi strptr thành 32-bit binary, trả về 1 nếu chuyển dc
+in_addr_t inet_addr(const char *strptr); : trả về 32-bit binary của của dc ipv4
+char *inet_ntoa(struct in_addrinaddr); : chuyển ngược từ 32-bit binary thành kiểu string
+```
+
+```
+int inet_pton(int family,const char *strptr,void *addrptr); : trả về 1 nếu chuyển dữ liệu trỏ trong strptr thành binary và lưu trong addrptr
+const char *inet_ntop(intfamily,const void *addrptr,char *strptr,size_tlen); : quá trình ngược lại 
+```
+sock_nton: cũng quá trình chuyển string sang binary nhưng trong TH muốn k phụ thuộc protocol IPv4 hay IPv6
+```
+ssize_t readn(intfiledes,void *buff,size_tnbytes); : read n bytes from descriptors
+
+ssize_t writen(intfiledes,const void *buff,size_tnbytes); : write n bytes to file descriptors
+
+ssize_t readline(intfiledes,void *buff,size_tmaxlen); : read a text line from a descriptor, one byte at a time
+```
+
+# TCP Socket: 
+
+![Alt text](image-9.png)
+
+TCP using Ipv4, UDP : IPv6, 
+
+```
+int socket (intfamily,inttype,intprotocol); : khởi tạo socket, xác định những phương thức giao tiếp
+```
+![Alt text](image-10.png)
+
+Connect: 
+```
+int connect(intsockfd,const struct sockaddr *servaddr,socklen_taddrlen); 
+```
+
+Client k nhất thiết phải bind, 3 way handshake
+
+Bind: cung cấp 1 địa chỉ local cho socket. Kernel sẽ tự thực hiện việc chọn port cho socket 
+```
+int bind (intsockfd,const struct sockaddr *myaddr,socklen_taddrlen);
+```
+
+Listen: khi socket đã được tạo, nó cần dc xác định là 1 socket khả dụng. chuyển trạng thái unactive sang active socket, backlog là số lượng ng truy cập vào socket tối đa
+```
+int listen (intsockfd,intbacklog); :
+```
+
+Accept: is called by a TCP server to return the next completed connection from the front of the
+completed connection queue (Figure 4.7). If the completed connection queue is empty, the
+process is put to sleep
+```
+int accept (intsockfd,struct sockaddr *cliaddr,socklen_t *addrlen); 
+```
+
+Fork: 
+```
+pid_t fork(void);
+```
+t returns once in the calling process (called the parent) with a
+return value that is the process ID of the newly created process (the child). It also returns
+once in the child, with a return value of 0. Hence, the return value tells the process whether it
+is the parent or the child.
+
+Thông thường có 2 chức năng của fork: 
+
+_ Tạo 1 bản sao của process để 1 process thực hiện task hiện tại 1 process thực hiện task khác. 
+
+_ Process trong quá trình thực hiện muốn thực hiện 1 task nhỏ trong program khác, nó sẽ tạo 1 copy với fork và dùng exec để thực hiện trong 1 chương trình khác.
+
+Exec: 
+```
+int execl (const char *pathname,const char *arg0, ... /* (char *) 0 */ );
+int execv (const char *pathname,char *constargv[]);
+int execle (const char *pathname,const char *arg0, ...
+/* (char *) 0, char *constenvp[] */ );
+int execve (const char *pathname,char *constargv[], char *constenvp[]);
+int execlp (const char *filename,const char *arg0, ... /* (char *) 0 */ );
+int execvp (const char *filename,char *constargv[]);
+```
+
+![Alt text](image-11.png)
+
+Concurrent Server (multiple clients):
+
+Close:
+```
+int close (intsockfd);
+```
+
+Getsockname, getpeername:
+
+```
+int getsockname(intsockfd,struct sockaddr *localaddr,socklen_t *addrlen); : trả về local port number đã đăng kí
+int getpeername(intsockfd,struct sockaddr *peeraddr,socklen_t *addrlen); : IP address và port của client
+```
