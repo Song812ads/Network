@@ -316,3 +316,13 @@ Getsockname, getpeername:
 int getsockname(intsockfd,struct sockaddr *localaddr,socklen_t *addrlen); : trả về local port number đã đăng kí
 int getpeername(intsockfd,struct sockaddr *peeraddr,socklen_t *addrlen); : IP address và port của client
 ```
+Giao tiếp giữa server và client: 
+
+1. The client reads a line of text from its standard input and writes the line to the server. <br>
+2. The server reads the line from its network input and echoes the line back to the client. <br>
+3. The client reads the echoed line and prints it on its standard output. 
+
+```
+wait: trả về process ID của child
+waitpid: 
+```
