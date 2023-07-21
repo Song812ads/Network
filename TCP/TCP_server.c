@@ -19,7 +19,7 @@ int main(int argc, char **argv){
     else printf("Socket: %d \n",serverSocketfd);
     bzero (&serveradd, sizeof(serveradd));
     serveradd.sin_family = AF_INET;
-    serveradd.sin_port = htons ( 13 );
+    serveradd.sin_port = htons ( 4444 );
     serveradd.sin_addr.s_addr = htonl(INADDR_ANY);
     if (bind (serverSocketfd, (struct sockaddr*) &serveradd, sizeof( serveradd))!=0){
         perror("Server bind fail");
@@ -33,12 +33,15 @@ int main(int argc, char **argv){
     }
     else printf("Listening...\n");
     bzero(&clientadd,sizeof(clientadd));
-    if (clientSocketfd = accept(serverSocketfd, (struct sockaddr*) &clientadd, &clientlength)==-1){
+    if ((clientSocketfd = accept(serverSocketfd, (struct sockaddr*) &clientadd, &clientlength))==-1){
         printf("Server accept fail");
     }
     else printf("Server Accepted");
+
     char* msg = "Hello world";
+
     write(clientSocketfd,msg,strlen(msg));
+
     close(clientSocketfd);
     close(serverSocketfd);
 

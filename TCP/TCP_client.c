@@ -25,7 +25,7 @@ int main(int argc, char **argv){
 
     bzero (&serveradd, sizeof(serveradd));
     serveradd.sin_family = AF_INET;
-    serveradd.sin_port = htons ( 13 );
+    serveradd.sin_port = htons ( argv[2] );
     if (inet_pton (AF_INET, argv[1], &serveradd.sin_addr) <= 0) {
         perror("Convert binary fail"); 
         exit(1);
@@ -38,7 +38,7 @@ int main(int argc, char **argv){
 
     char buf[128];
     read(socketfd, buf, 128);
-    printf("received: \"%s\"\n",buf); 
+    printf("received: %s\n",buf); 
     close(socketfd);
 
 }
