@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <errno.h>
+#define BUFFLEN 1000
+
+
+int main(int argc, char **argv){
+
+    signal(SIGPIPE,pipebroke);
+    signal(SIGINT,exithandler);
+    int serverSocketfd, clientSocketfd, valread;
+    struct sockaddr_in serveradd, clientadd;
+    char buffer[BUFFLEN];
+    int clientlength = sizeof(clientadd);
+    int opt = 1;
+    // Socket create:
+    if ((serverSocketfd = socket(AF_INET, SOCK_STREAM,0))<0){
+        perror("Socket create fail");
+        exit(1);
+    }
+
+    // check socket already use or not 
+    if (setsockopt(serverSocketfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))){
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+
+    bzero (&serveradd, sizeof(serveradd));
+    serveradd.sin_family = AF_INET;
+    serveradd.sin_port = htons ( 4444 );
+    serveradd.sin_addr.s_addr = htonl(INADDR_ANY);
+    if (bind (serverSocketfd, (struct sockaddr*) &serveradd, sizeof( serveradd))!=0){
+        perror("Server bind fail");
+        exit(1);
+    }
+    else printf("Binding...\n");
+    if (listen(serverSocketfd,10)!=0)
+    {
+        perror("Server listen error");
+        exit(1);
+    }
+    else printf("Listening...\n");
+    bzero(&clientadd,sizeof(clientadd));
+    while (1)
+    {    
+        // Wait for client: 
+        if ((clientSocketfd = accept(serverSocketfd, (struct sockaddr*) &clientadd, &clientlength))==-1){
+            printf("Server accept fail");
+            goto exit;
+        }
+        else printf("New Client Connect");
+        // Do with buffer: 
+        while (1){
+            memset(&buffer,'\0', BUFFLEN);
+            strcp(buffer,"Welcome. Press R to show full request list, press Q to exit. Enter filename to download");
+            if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+                printf("Fail to send welcome signal");
+                goto out;
+            }    
+            memset(&buffer,'\0', BUFFLEN);
+            if (valread=recv(clientSocketfd,buffer,BUFFLEN,0)<0){
+                printf("Server receive fail");
+                goto out;
+            }
+            if (strlen(buffer)==0){
+                printf("Client Content Nothing");
+                goto out;
+            }
+            if (strcmcp(buffer,"text.txt") == 0){
+                printf("File client request not match");
+                goto out;
+            }
+            if (!checkfile(buffer)){
+                printf("Server access file error!");
+                memset(&buffer,'\0', BUFFLEN);
+                strcp(buffer,"Fail to read file");
+                if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+                    printf("Fail to send failure read file");
+                }
+                goto out;
+            }
+            else {
+                memset(&buffer,'\0', BUFFLEN);
+                strcpy(buffer,"Read file success. File prepare to download!");
+                if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+                    printf("Fail to send success read file");
+                }
+            }
+        out: 
+
+        }
+        
+        exit: 
+
+    }
+    close(clientSocketfd);
+    close(serverSocketfd);
+
+}
+

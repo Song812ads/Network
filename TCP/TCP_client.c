@@ -11,7 +11,7 @@ int main(int argc, char **argv){
     int socketfd; 
     struct sockaddr_in serveradd;
     
-    if (argc!=3){
+    if (argc!=4){
         printf("Wrong type <server addresss> <server port>");
         exit(1);
     }
@@ -25,7 +25,8 @@ int main(int argc, char **argv){
 
     bzero (&serveradd, sizeof(serveradd));
     serveradd.sin_family = AF_INET;
-    serveradd.sin_port = htons ( argv[2] );
+    char* port = argv[2];
+    serveradd.sin_port = htons ( atoi(port) );
     if (inet_pton (AF_INET, argv[1], &serveradd.sin_addr) <= 0) {
         perror("Convert binary fail"); 
         exit(1);

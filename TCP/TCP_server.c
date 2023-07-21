@@ -6,11 +6,40 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <errno.h>
+#define BUFFLEN 100
+
+void file_transfer(char* buffer){
+    
+
+    fp = fopen(buffer,"r");
+    if (fp == NULL){
+        perror("Error reading file)");
+        exit(1);
+    }
+
+}
+
+int checkfile(char* buffer){
+    if (access(buffer, F_OK) == -1){
+        printf("File don't exist");
+        return 0;
+    }
+    else if (access(buffer,R_OK) == -1){
+        printf("Cant read file");
+        return 0;
+    }
+    else {
+        printf("File prepare to read");
+        return 1;
+    }
+}
 
 int main(int argc, char **argv){
-    int serverSocketfd, clientSocketfd;
+    int serverSocketfd, clientSocketfd, valread;
     struct sockaddr_in serveradd, clientadd;
-    int clientlength;
+    char buffer[100];
+    int clientlength = sizeof(clientadd);
+
     // Socket create:
     if ((serverSocketfd = socket(AF_INET, SOCK_STREAM,0))<0){
         perror("Socket create fail");
@@ -33,17 +62,52 @@ int main(int argc, char **argv){
     }
     else printf("Listening...\n");
     bzero(&clientadd,sizeof(clientadd));
-    if ((clientSocketfd = accept(serverSocketfd, (struct sockaddr*) &clientadd, &clientlength))==-1){
-        printf("Server accept fail");
+
+
+        if ((clientSocketfd = accept(serverSocketfd, (struct sockaddr*) &clientadd, &clientlength))==-1){
+            printf("Server accept fail");
+            exit(1)
+        }
+        else printf("Server Accepted");
+
+        memset(&buffer,'\0', BUFFLEN);
+        strcmp(buffer,"Welcome!!!!");
+        if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+            printf("Fail to send welcome signal");
+            exit(1);
+        }
+
+        memset(&buffer,'\0', BUFFLEN);
+        if (valread=recv(clientSocketfd,buffer,BUFFLEN,0)<0){
+            printf("Server receive fail");
+            exit(1);
+        }
+
+        if (strcmp(buffer,"text.txt") == 0){
+            printf("File client request not match");
+            exit(1);
+        }
+
+        if (!checkfile(buffer)){
+            printf("Error access file");
+            memset(&buffer,'\0', BUFFLEN);
+            strcmp(buffer,"Server cannot access file");
+            if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+                printf("Fail to send access error signal");
+            exit(1);
+        }       
+
+        else {
+            memset(&buffer,'\0', BUFFLEN);
+            strcpy(buffer,"Read file success. File prepare to download!");
+            if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+                printf("Fail to send success read file");
+            }
+            file_transfer(buffer);
+        }
     }
-    else printf("Server Accepted");
-
-    char* msg = "Hello world";
-
-    write(clientSocketfd,msg,strlen(msg));
 
     close(clientSocketfd);
     close(serverSocketfd);
 
 }
-
