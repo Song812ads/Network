@@ -129,14 +129,14 @@ int main(int argc, char **argv){
     else {
         memset(buffer,'\0',BUFFLEN);                   
         strcpy(buffer,"Success");
-        if (send(clientSocketfd,msg,strlen(msg),0)<0){
+        if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send success read file signal");  
             free(buffer);
             exit(1);
         }
 
         memset(buffer,'\0',BUFFLEN);                   
-        if(recv(clientSocketfd,bufer,BUFFLEN,0)<0)
+        if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");

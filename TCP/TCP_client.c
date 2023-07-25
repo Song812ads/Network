@@ -114,7 +114,7 @@ int main(int argc, char **argv){
         file_transfer(argv[3],buffer);
 
     }
-    else if (strcmp(checkin,"Error")==0){
+    else if (strcmp(buffer,"Error")==0){
         printf("%s download fail \n",argv[3]);
         exit(1);
     }
