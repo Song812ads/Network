@@ -22,18 +22,16 @@ void exithandler()
     exit(EXIT_FAILURE);
 }
 
-void file_transfer(char* buffer){
-    int fp = open(buffer, O_WRONLY | O_CREAT | O_SYNC);
+void file_transfer(char* file, char* buffer){
+    int fp = open(file, O_WRONLY | O_APPEND | O_CREAT | O_SYNC);
     if (fp == -1){
         perror("Error reading file\n");
         exit(1);
     }
     off_t offset = 0;
-    struct stat st;
-    long size;
-    if (stat(buffer, &st) == 0) size = st.st_size;
+    long size = strlen(buffer);
     while (offset < size){
-        ssize_t readnow = pread(fp, buffer + offset, 1024, offset);
+        ssize_t readnow = pwrite(fp, buffer + offset, 1024, offset);
         if (readnow < 0){
             printf("Read unsuccessful \n");
             free(buffer);
@@ -43,7 +41,7 @@ void file_transfer(char* buffer){
         offset = offset+readnow;
     }
     close(fp);
-    printf("File read complete \n");
+    printf("File write complete \n");
 }
 
 int main(int argc, char **argv){
@@ -97,11 +95,12 @@ int main(int argc, char **argv){
         perror("recv failed");
         exit(1);
     }
+
     if (strcmp(buffer,"Success")){
         printf("%s ready to download \n",argv[3]);
-        file_transfer(argv[3]);
+        file_transfer(argv[3],buffer);
     }
-    else if (strcmp(buffer, "Error")){
+    else if (strcmp(buffer,"Error")){
         printf("%s download fail \n",argv[3]);
         exit(1);
     }

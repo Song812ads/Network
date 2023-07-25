@@ -23,9 +23,9 @@ void exithandler()
 }
 
 void file_transfer(char* buffer){
-    int fp = open(buffer, O_RDONLY |O_SYNC );
+    int fp = open(buffer, O_RDONLY );
     if (fp == -1){
-        perror("Error reading file)");
+        perror("Error reading file");
         exit(1);
     }
     off_t offset = 0;
@@ -57,7 +57,7 @@ int checkfile(unsigned char* buffer){
     }
     else {
         printf("File prepare to read\n");
-        return 0;
+        return 1;
     }
 }
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv){
     signal(SIGINT,exithandler);
     int serverSocketfd, clientSocketfd, valread;
     struct sockaddr_in serveradd, clientadd;
-    unsigned char *buffer = (unsigned char* )malloc(BUFFLEN * sizeof(unsigned char));
+    char *buffer = (char* )malloc(BUFFLEN * sizeof(char));
     int clientlength = sizeof(clientadd);
 
     // Socket create:
@@ -109,7 +109,15 @@ int main(int argc, char **argv){
             free(buffer);
             exit(1);
         }}
-    printf("Buffer: %s",buffer);
+    printf("Buffer: %s\n",buffer);
+    char* path = "/home/phuongnam/transmit/";
+    size_t len = strlen(path);
+    char* path_buffer = malloc(len+strlen(buffer));
+    strcpy(path_buffer,path);
+    strcpy(path_buffer+len,buffer);
+    memset(buffer,'\0',BUFFLEN);
+    strcpy(buffer,path_buffer);
+    free(path_buffer);
     if (!checkfile(buffer)){
         printf("Error access file\n");
         memset(buffer,'\0', BUFFLEN);
@@ -121,6 +129,7 @@ int main(int argc, char **argv){
     }}
 
     else {
+        file_transfer(buffer);
         memset(buffer,'\0', BUFFLEN);
         strcpy(buffer,"Success");
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
@@ -128,13 +137,11 @@ int main(int argc, char **argv){
             free(buffer);
             exit(1);
         }
-        file_transfer(buffer);
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
             free(buffer);
             exit(1);
         }}
-
     free(buffer);
     close(clientSocketfd);
     close(serverSocketfd);
