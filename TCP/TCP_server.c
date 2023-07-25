@@ -144,7 +144,7 @@ int main(int argc, char **argv){
     }
         if (strcmp(buf,"Ready")==0){
         file_transfer(buffer);
-        if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
+        if (send(clientSocketfd,buffer,strlen(buffer),0)<0){
             printf("Fail to send file read");  
             free(buffer);
             exit(1);
