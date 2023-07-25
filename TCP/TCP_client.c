@@ -30,6 +30,7 @@ void file_transfer(char* file, char* buffer){
     }
     off_t offset = 0;
     long size = strlen(buffer);
+    printf("%ld",size);
     while (offset < size){
         ssize_t readnow = pwrite(fp, buffer + offset, 1024, offset);
         if (readnow < 0){
@@ -88,17 +89,18 @@ int main(int argc, char **argv){
         exit(1);
     }
     
-    char *checkin = (char* )malloc(50*sizeof(char));
-    if(recv(socketfd,checkin,50,0)<0)
+    memset(buffer,'\0',BUFFLEN);                   
+    if(recv(socketfd,buffer,BUFFLEN,0)<0)
     {
         perror("Checkin failed");
         exit(1);
     }
 
-    if (strcmp(checkin,"Success")==0){
+    if (strcmp(buffer,"Success")==0){
         printf("%s ready to download \n",argv[3]);
-        char* msg = "Ready";
-        if (send(socketfd,msg,strlen(msg),0)<0){
+        memset(buffer,'\0',BUFFLEN);                   
+        strcpy(buffer,"Ready");
+        if (send(socketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send success read file signal");  
             free(buffer);
             exit(1);
@@ -118,7 +120,6 @@ int main(int argc, char **argv){
     }
 
     free(buffer);
-    free(checkin);
     close(socketfd);
     return 0;
 }

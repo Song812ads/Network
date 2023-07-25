@@ -109,15 +109,13 @@ int main(int argc, char **argv){
             free(buffer);
             exit(1);
         }}
-    printf("Buffer: %s\n",buffer);
+
     char* path = "/home/phuongnam/transmit/";
     size_t len = strlen(path);
     char* path_buffer = malloc(len+strlen(buffer));
     strcpy(path_buffer,path);
     strcpy(path_buffer+len,buffer);
-    memset(buffer,'\0',BUFFLEN);
-    strcpy(buffer,path_buffer);
-    free(path_buffer);
+
     if (!checkfile(buffer)){
         printf("Error access file\n");
         memset(buffer,'\0', BUFFLEN);
@@ -129,20 +127,25 @@ int main(int argc, char **argv){
     }}
 
     else {
-        char* msg = "Success";
+        memset(buffer,'\0',BUFFLEN);                   
+        strcpy(buffer,"Success");
         if (send(clientSocketfd,msg,strlen(msg),0)<0){
             printf("Fail to send success read file signal");  
             free(buffer);
             exit(1);
         }
-        char buf[128];
-        if(recv(clientSocketfd,buf,128,0)<0)
+
+        memset(buffer,'\0',BUFFLEN);                   
+        if(recv(clientSocketfd,bufer,BUFFLEN,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");
         exit(1);
     }
-        if (strcmp(buf,"Ready")==0){
+        if (strcmp(buffer,"Ready")==0){
+        memset(buffer,'\0',BUFFLEN);
+        strcpy(buffer,path_buffer);
+        free(path_buffer);
         file_transfer(buffer);
         if (send(clientSocketfd,buffer,strlen(buffer),0)<0){
             printf("Fail to send file read");  
