@@ -33,7 +33,7 @@ void file_transfer(char* file, char* buffer){
     while (offset < size){
         ssize_t readnow = pwrite(fp, buffer + offset, 1024, offset);
         if (readnow < 0){
-            printf("Read unsuccessful \n");
+            printf("Write unsuccessful \n");
             free(buffer);
             close(fp);
             exit(1);
@@ -87,13 +87,11 @@ int main(int argc, char **argv){
         perror("send failed");
         exit(1);
     }
-
     
     char *checkin = (char* )malloc(50*sizeof(char));
     if(recv(socketfd,checkin,50,0)<0)
     {
-        printf(" Knowing the status of the file on server side failed\n");
-        perror("recv failed");
+        perror("Checkin failed");
         exit(1);
     }
 
@@ -108,8 +106,7 @@ int main(int argc, char **argv){
     memset(buffer,'\0',BUFFLEN); 
     if(recv(socketfd,buffer,BUFFLEN,0)<0)
     {
-        printf(" Knowing the status of the file on server side failed\n");
-        perror("recv failed");
+        perror("Buffer read failed");
         exit(1);
     }
         file_transfer(argv[3],buffer);
