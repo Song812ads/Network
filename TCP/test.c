@@ -92,9 +92,10 @@ int main()
     strcpy(path_buffer+len,buffer);
     memset(buffer,'\0',BUFFLEN);
     strcpy(buffer,path_buffer);
-    free(path_buffer);
-    file_transfer(buffer);
+
+    file_transfer(path_buffer);
     file_transfer1("text.txt",buffer);
+    free(path_buffer);
     free(buffer);
     return 0;
 

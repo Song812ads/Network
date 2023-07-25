@@ -30,7 +30,7 @@ void file_transfer(char* file, char* buffer){
     }
     off_t offset = 0;
     long size = strlen(buffer);
-    printf("%ld",size);
+    printf("Size of file: %ld\n",size);
     while (offset < size){
         ssize_t readnow = pwrite(fp, buffer + offset, 1024, offset);
         if (readnow < 0){

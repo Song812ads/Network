@@ -113,10 +113,11 @@ int main(int argc, char **argv){
     char* path = "/home/phuongnam/transmit/";
     size_t len = strlen(path);
     char* path_buffer = malloc(len+strlen(buffer));
+    memset(path_buffer,'\0',sizeof(path_buffer));
     strcpy(path_buffer,path);
     strcpy(path_buffer+len,buffer);
 
-    if (!checkfile(buffer)){
+    if (checkfile(path_buffer)==0){
         printf("Error access file\n");
         memset(buffer,'\0', BUFFLEN);
         strcpy(buffer,"Error");
@@ -145,14 +146,15 @@ int main(int argc, char **argv){
         if (strcmp(buffer,"Ready")==0){
         memset(buffer,'\0',BUFFLEN);
         strcpy(buffer,path_buffer);
-        free(path_buffer);
+        printf("Buffer: %s\n",buffer);
         file_transfer(buffer);
-        if (send(clientSocketfd,buffer,strlen(buffer),0)<0){
+        if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
             free(buffer);
             exit(1);
         }}}
     free(buffer);
+    free(path_buffer);
     close(clientSocketfd);
     close(serverSocketfd);
 
