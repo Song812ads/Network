@@ -4,13 +4,16 @@
 
 int main()
 {
-    union {
-    char buffer[4];
-    int32_t buffer_ui;
-            } char_array_ui;
-    char_array_ui.buffer_ui = 0x1234;
-    // strcpy(char_array_ui.buffer,"12345678");
-    
-    printf("%s",char_array_ui.buffer);
-    
+   unsigned long* str = (long* )malloc(50*sizeof(long));
+
+   strcpy( (char*)str,"Hoc C co ban va nang cao tai QTM");
+   puts((char*)str);
+
+   memset((char*)str,'\0',50);
+   puts((char*)str);
+
+
+    printf("%ld", sizeof(buffer));
+    printf("%ld", sizeof((char*)buffer));
+
 }
