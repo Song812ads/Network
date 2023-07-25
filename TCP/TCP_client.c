@@ -23,7 +23,7 @@ void exithandler()
 }
 
 void file_transfer(char* file, char* buffer){
-    int fp = open(file, O_WRONLY | O_APPEND | O_CREAT | O_SYNC);
+    int fp = open(file, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,0644);
     if (fp == -1){
         perror("Error reading file\n");
         exit(1);
@@ -89,23 +89,26 @@ int main(int argc, char **argv){
     }
 
     memset(buffer,'\0',BUFFLEN); 
-    if(recv(socketfd,buffer,BUFFLEN,0)<0)
+    char *checkin = (char* )malloc(50*sizeof(char));
+    if(recv(socketfd,checkin,BUFFLEN,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");
         exit(1);
     }
 
-    if (strcmp(buffer,"Success")){
+    if (strcmp(checkin,"Success")==0){
         printf("%s ready to download \n",argv[3]);
         file_transfer(argv[3],buffer);
+
     }
-    else if (strcmp(buffer,"Error")){
+    else if (strcmp(checkin,"Error")==0){
         printf("%s download fail \n",argv[3]);
         exit(1);
     }
 
-
+    free(buffer);
+    free(checkin);
     close(socketfd);
     return 0;
 }

@@ -58,7 +58,6 @@ void file_transfer1(char* file, char* buffer){
         exit(1);
     }
     off_t offset = 0;
-    struct stat st;
     long size = strlen(buffer);
     printf("%d",size);
     int t =0;
