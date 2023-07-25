@@ -88,9 +88,9 @@ int main(int argc, char **argv){
         exit(1);
     }
 
-    memset(buffer,'\0',BUFFLEN); 
+    
     char *checkin = (char* )malloc(50*sizeof(char));
-    if(recv(socketfd,checkin,BUFFLEN,0)<0)
+    if(recv(socketfd,checkin,50,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");
@@ -99,6 +99,19 @@ int main(int argc, char **argv){
 
     if (strcmp(checkin,"Success")==0){
         printf("%s ready to download \n",argv[3]);
+        char* msg = "Ready";
+        if (send(socketfd,msg,strlen(msg),0)<0){
+            printf("Fail to send success read file signal");  
+            free(buffer);
+            exit(1);
+        }
+    memset(buffer,'\0',BUFFLEN); 
+    if(recv(socketfd,buffer,BUFFLEN,0)<0)
+    {
+        printf(" Knowing the status of the file on server side failed\n");
+        perror("recv failed");
+        exit(1);
+    }
         file_transfer(argv[3],buffer);
 
     }
