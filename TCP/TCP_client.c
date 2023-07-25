@@ -25,7 +25,7 @@ void exithandler()
 void file_transfer(char* buffer){
     int fp = open(buffer, O_WRONLY | O_CREAT | O_SYNC);
     if (fp == -1){
-        perror("Error reading file)");
+        perror("Error reading file\n");
         exit(1);
     }
     off_t offset = 0;
@@ -54,13 +54,13 @@ int main(int argc, char **argv){
     unsigned char *buffer = (unsigned char* )malloc(BUFFLEN * sizeof(unsigned char));
     
     if (argc!=4){
-        printf("Wrong type <server addresss> <server port>");
+        printf("Wrong type <server addresss> <server port>\n");
         exit(1);
     }
 
     // Socket create:
     if ((socketfd = socket(AF_INET, SOCK_STREAM,0))<0){
-        perror("Socket create fail");
+        perror("Socket create fail\n");
         exit(1);
     }
     else printf("Socket: %d \n",socketfd);
@@ -98,13 +98,14 @@ int main(int argc, char **argv){
         exit(1);
     }
     if (strcmp(buffer,"Success")){
-        printf("%s ready to download",argv[3]);
+        printf("%s ready to download \n",argv[3]);
+        file_transfer(argv[3]);
     }
     else if (strcmp(buffer, "Error")){
-        printf("%s download fail",argv[3]);
+        printf("%s download fail \n",argv[3]);
         exit(1);
     }
-    file_transfer(argv[3]);
+
 
     close(socketfd);
     return 0;

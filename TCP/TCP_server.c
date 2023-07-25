@@ -48,16 +48,16 @@ void file_transfer(char* buffer){
 
 int checkfile(unsigned char* buffer){
     if (access(buffer, F_OK) == -1){
-        printf("File don't exist");
+        printf("File don't exist\n");
         return 0;
     }
     else if (access(buffer,R_OK) == -1){
-        printf("Cant read file");
+        printf("Cant read file\n");
         return 0;
     }
     else {
-        printf("File prepare to read");
-        return 1;
+        printf("File prepare to read\n");
+        return 0;
     }
 }
 
@@ -97,7 +97,7 @@ int main(int argc, char **argv){
         printf("Server accept fail");
         exit(1);
     }
-    else printf("Server Accepted");
+    else printf("Server Accepted\n");
 
     memset(buffer,'\0', BUFFLEN);
     if (valread=recv(clientSocketfd,buffer,BUFFLEN,0)<0){
@@ -109,9 +109,9 @@ int main(int argc, char **argv){
             free(buffer);
             exit(1);
         }}
-
+    printf("Buffer: %s",buffer);
     if (!checkfile(buffer)){
-        printf("Error access file");
+        printf("Error access file\n");
         memset(buffer,'\0', BUFFLEN);
         strcpy(buffer,"Error");
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
