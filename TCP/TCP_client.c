@@ -124,6 +124,7 @@ int main(int argc, char **argv){
             perror("Buffer read failed");
             exit(1);
         }
+        printf("Buffer: %s\n",buffer);
         file_transfer(argv[3],buffer,size);
 
     }
