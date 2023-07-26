@@ -152,9 +152,10 @@ int main(int argc, char **argv){
         if (strcmp(buffer,"Ready")==0){
         memset(buffer,'\0',BUFFLEN);
         strcpy(buffer,path_buffer);
-        long long size = file_transfer(buffer);
-        char msg[30];
-        sprintf(msg,"%lld",size);
+        long  size = file_transfer(buffer);
+        char *msg = malloc(30*sizeof(char));
+        sprintf(msg,"%ld",size);
+        printf("Size from server: %ld \n",size);
         if (send(clientSocketfd,msg,strlen(msg),0)<0){
             printf("Fail to send file read");  
             free(buffer);
