@@ -150,16 +150,19 @@ int main(int argc, char **argv){
         exit(1);
     }
         if (strcmp(buffer,"Ready")==0){
-        memset(buffer,'\0',BUFFLEN);
-        strcpy(buffer,path_buffer);
-        long  size = file_transfer(buffer);
-        char *msg = malloc(30*sizeof(char));
-        sprintf(msg,"%ld",size);
-        printf("Size from server: %ld \n",size);
-        if (send(clientSocketfd,msg,strlen(msg),0)<0){
-            printf("Fail to send file read");  
-            free(buffer);
-            exit(1);
+        
+        while (1){     
+            memset(buffer,'\0',BUFFLEN);
+            strcpy(buffer,path_buffer);
+            free(path_buffer);
+            long  size = file_transfer(buffer);
+            char *msg = malloc(30*sizeof(char));
+            sprintf(msg,"%ld",size);
+            printf("Size from server: %ld \n",size);
+            if (send(clientSocketfd,msg,strlen(msg),0)<0){
+                printf("Fail to send file read");  
+                free(buffer);
+                exit(1);
         }
         memset(msg,'\0',30);                   
         if(recv(clientSocketfd,msg,30,0)<0)
@@ -168,17 +171,30 @@ int main(int argc, char **argv){
         perror("recv failed");
         exit(1);
     }
-
         if (strcmp(msg,"size") == 0){
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
             free(buffer);
             exit(1);
-        }
-        }
         }}
+
+        //Wait for client reponse download all current on buffer:
+
+        //Check đã đủ chưa nếu 
+        if (size != BUFFLEN){
+
+            break;
+        }
+
+        else {
+
+            continue;
+        }
+        } 
+
+
+        }
     free(buffer);
-    free(path_buffer);
     close(clientSocketfd);
     close(serverSocketfd);
 
