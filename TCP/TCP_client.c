@@ -22,15 +22,13 @@ void exithandler()
     exit(EXIT_FAILURE);
 }
 
-void file_transfer(char* file, char* buffer){
+void file_transfer(char* file, char* buffer, long long size){
     FILE *fp = fopen(file, "wb+");
     if (fp == NULL){
         perror("Error reading file\n");
         exit(1);
     }
-    long offset = 0;
-    long size = strlen(buffer);
-    printf("Size of file: %ld\n",size);
+    long long offset = 0;
     while (offset < size){
         size_t readnow = fwrite(buffer, size, 1, fp);
         if (readnow < 0){
