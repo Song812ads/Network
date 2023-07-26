@@ -107,7 +107,7 @@ int main(int argc, char **argv){
     memset(buffer,'\0',BUFFLEN); 
     if(recv(socketfd,buffer,BUFFLEN,0)<0)
     {
-        perror("Buffer read failed");
+        perror("Buffer size read failed");
         exit(1);
     }
         long size = atol(buffer);
@@ -121,7 +121,7 @@ int main(int argc, char **argv){
         memset(buffer,'\0',BUFFLEN); 
         if(recv(socketfd,buffer,BUFFLEN,0)<0)
         {
-            perror("Buffer read failed");
+            perror("Buffer content read failed");
             exit(1);
         }
         printf("Buffer: %s\n",buffer);
