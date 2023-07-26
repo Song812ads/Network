@@ -1,0 +1,1 @@
+        fseek(fp,readnow,SEEK_CUR);

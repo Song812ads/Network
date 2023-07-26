@@ -23,25 +23,25 @@ void exithandler()
 }
 
 void file_transfer(char* file, char* buffer){
-    int fp = open(file, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,0644);
-    if (fp == -1){
+    FILE *fp = fopen(file, "w+");
+    if (fp == NULL){
         perror("Error reading file\n");
         exit(1);
     }
-    off_t offset = 0;
+    long offset = 0;
     long size = strlen(buffer);
     printf("Size of file: %ld\n",size);
     while (offset < size){
-        ssize_t readnow = pwrite(fp, buffer + offset, 1024, offset);
+        size_t readnow = fwrite(buffer, 1, size, fp);
         if (readnow < 0){
             printf("Write unsuccessful \n");
             free(buffer);
-            close(fp);
+            fclose(fp);
             exit(1);
         }
         offset = offset+readnow;
     }
-    close(fp);
+    fclose(fp);
     printf("File write complete \n");
 }
 

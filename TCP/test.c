@@ -27,28 +27,31 @@ int checkfile(char* buffer){
 }
 
 void file_transfer(char* buffer){
-    int fp = open(buffer, O_RDONLY);
-    if (fp == -1){
-        perror("Error reading file\n");
+    FILE *fp = fopen(buffer, "r" );
+    if (fp == NULL){
+        perror("Error reading file");
         exit(1);
     }
     off_t offset = 0;
-    struct stat st;
-    long size;
-    if (stat(buffer, &st) == 0) size = st.st_size;
-    while (offset < size){
-        ssize_t readnow = pread(fp, buffer+offset, 1024, offset);
-        if (readnow < 0){
+    // struct stat st;
+    fseek(fp,0,SEEK_END);
+    long size = ftell(fp);
+    printf("%ld",size);
+    fseek(fp,0,SEEK_SET);
+    while (!feof(fp)){
+        size_t readnow = fread(buffer, 1, 1000, fp);
+        printf("%ld",readnow);
+        if (readnow == 0){
             printf("Read unsuccessful \n");
             free(buffer);
-            close(fp);
+            fclose(fp);
             exit(1);
         }
+        fseek(fp,readnow,SEEK_CUR);
         offset = offset+readnow;
     }
-    close(fp);
-    printf("%s",buffer);
-    printf("File read complete \n");
+    fclose(fp);
+    printf("Socket read complete ready to send \n");
 }
 
 void file_transfer1(char* file, char* buffer){
@@ -59,7 +62,7 @@ void file_transfer1(char* file, char* buffer){
     }
     off_t offset = 0;
     long size = strlen(buffer);
-    printf("%d",size);
+    printf("%ld",size);
     int t =0;
     while (offset < size){
         ssize_t readnow = pwrite(fp, buffer + offset, 10, offset);

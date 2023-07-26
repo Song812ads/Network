@@ -23,26 +23,28 @@ void exithandler()
 }
 
 void file_transfer(char* buffer){
-    int fp = open(buffer, O_RDONLY );
-    if (fp == -1){
+    FILE *fp = fopen(buffer, "r" );
+    if (fp == NULL){
         perror("Error reading file");
         exit(1);
     }
     off_t offset = 0;
-    struct stat st;
-    long size;
-    if (stat(buffer, &st) == 0) size = st.st_size;
+    // struct stat st;
+    fseek(fp,0,SEEK_END);
+    long size = ftell(fp);
+    fseek(fp,0,SEEK_SET);
     while (offset < size){
-        ssize_t readnow = pread(fp, buffer + offset, 1024, offset);
+        ssize_t readnow = fread(buffer, 1, BUFFLEN, fp);
         if (readnow < 0){
             printf("Read unsuccessful \n");
             free(buffer);
-            close(fp);
+            fclose(fp);
             exit(1);
         }
+        fseek(fp,readnow,SEEK_CUR);
         offset = offset+readnow;
     }
-    close(fp);
+    fclose(fp);
     printf("Socket read complete ready to send \n");
 }
 
@@ -146,7 +148,6 @@ int main(int argc, char **argv){
         if (strcmp(buffer,"Ready")==0){
         memset(buffer,'\0',BUFFLEN);
         strcpy(buffer,path_buffer);
-        printf("Buffer: %s\n",buffer);
         file_transfer(buffer);
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
