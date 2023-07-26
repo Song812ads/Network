@@ -112,7 +112,7 @@ int main(int argc, char **argv){
     }
         long size = atol(buffer);
         memset(buffer,'\0',BUFFLEN);                   
-        strcpy(buffer,"sizeee");
+        strcpy(buffer,"size");
         if (send(socketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send success read file signal");  
             free(buffer);
