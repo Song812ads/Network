@@ -1,1 +1,2 @@
-        fseek(fp,readnow,SEEK_CUR);
+    free(path_buffer);
+    free(buffer);

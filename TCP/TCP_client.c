@@ -23,7 +23,7 @@ void exithandler()
 }
 
 void file_transfer(char* file, char* buffer){
-    FILE *fp = fopen(file, "w+");
+    FILE *fp = fopen(file, "wb+");
     if (fp == NULL){
         perror("Error reading file\n");
         exit(1);
@@ -32,7 +32,7 @@ void file_transfer(char* file, char* buffer){
     long size = strlen(buffer);
     printf("Size of file: %ld\n",size);
     while (offset < size){
-        size_t readnow = fwrite(buffer, 1, size, fp);
+        size_t readnow = fwrite(buffer, size, 1, fp);
         if (readnow < 0){
             printf("Write unsuccessful \n");
             free(buffer);
@@ -111,7 +111,21 @@ int main(int argc, char **argv){
         perror("Buffer read failed");
         exit(1);
     }
-        file_transfer(argv[3],buffer);
+        long long size = atol(buffer);
+        memset(buffer,'\0',BUFFLEN);                   
+        strcpy(buffer,"size");
+        if (send(socketfd,buffer,BUFFLEN,0)<0){
+            printf("Fail to send success read file signal");  
+            free(buffer);
+            exit(1);
+        }
+        memset(buffer,'\0',BUFFLEN); 
+        if(recv(socketfd,buffer,BUFFLEN,0)<0)
+        {
+            perror("Buffer read failed");
+            exit(1);
+        }
+        file_transfer(argv[3],buffer,size);
 
     }
     else if (strcmp(buffer,"Error")==0){

@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
-#define BUFFLEN 5000
+#define BUFFLEN 10000
 
 void pipebroke()
 {
@@ -22,30 +22,34 @@ void exithandler()
     exit(EXIT_FAILURE);
 }
 
-void file_transfer(char* buffer){
-    FILE *fp = fopen(buffer, "r" );
+long file_transfer(char* buffer){
+    FILE *fp = fopen(buffer, "rb" );
     if (fp == NULL){
         perror("Error reading file");
         exit(1);
     }
-    off_t offset = 0;
     // struct stat st;
     fseek(fp,0,SEEK_END);
     long size = ftell(fp);
+    printf("%ld \n",size);
     fseek(fp,0,SEEK_SET);
-    while (offset < size){
-        ssize_t readnow = fread(buffer, 1, BUFFLEN, fp);
-        if (readnow < 0){
+    memset(buffer,'\0',BUFFLEN);
+    long offset = 0;
+    while (offset!=size){
+        size_t readnow = fread(buffer+offset, 1,1, fp);
+        if (readnow == 0){
             printf("Read unsuccessful \n");
             free(buffer);
             fclose(fp);
             exit(1);
-        }
-        fseek(fp,readnow,SEEK_CUR);
-        offset = offset+readnow;
     }
+            offset ++ ;
+    }
+    // printf("again: %s",buffer);
+    
     fclose(fp);
     printf("Socket read complete ready to send \n");
+    return size;
 }
 
 int checkfile(unsigned char* buffer){
@@ -80,7 +84,7 @@ int main(int argc, char **argv){
     bzero (&serveradd, sizeof(serveradd));
     serveradd.sin_family = AF_INET;
     serveradd.sin_port = htons ( 4444 );
-    serveradd.sin_addr.s_addr = htonl(INADDR_ANY);
+    serveradd.sin_addr.s_addr = htonl(INADDR_ANlongY);
     if (bind (serverSocketfd, (struct sockaddr*) &serveradd, sizeof( serveradd))!=0){
         perror("Server bind fail");
         close(serverSocketfd);
@@ -148,12 +152,30 @@ int main(int argc, char **argv){
         if (strcmp(buffer,"Ready")==0){
         memset(buffer,'\0',BUFFLEN);
         strcpy(buffer,path_buffer);
-        file_transfer(buffer);
+        long long size = file_transfer(buffer);
+        char msg[30];
+        sprintf(msg,"%lld",size);
+        if (send(clientSocketfd,msg,strlen(msg),0)<0){
+            printf("Fail to send file read");  
+            free(buffer);
+            exit(1);
+        }
+        memset(msg,'\0',30);                   
+        if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
+    {
+        printf(" Knowing the status of the file on server side failed\n");
+        perror("recv failed");
+        exit(1);
+    }
+
+        if (strcmp(msg,"size") == 0){
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
             free(buffer);
             exit(1);
-        }}}
+        }
+        }
+        }}
     free(buffer);
     free(path_buffer);
     close(clientSocketfd);

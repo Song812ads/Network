@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
-#define BUFFLEN 50000
+#define BUFFLEN 5000
 
 int checkfile(char* buffer){
     if (access(buffer, F_OK) == -1){
@@ -26,56 +26,55 @@ int checkfile(char* buffer){
     }
 }
 
-void file_transfer(char* buffer){
-    FILE *fp = fopen(buffer, "r" );
+long file_transfer(char* buffer){
+    FILE *fp = fopen(buffer, "rb" );
     if (fp == NULL){
         perror("Error reading file");
         exit(1);
     }
-    off_t offset = 0;
     // struct stat st;
     fseek(fp,0,SEEK_END);
     long size = ftell(fp);
-    printf("%ld",size);
+    printf("%ld \n",size);
     fseek(fp,0,SEEK_SET);
-    while (!feof(fp)){
-        size_t readnow = fread(buffer, 1, 1000, fp);
-        printf("%ld",readnow);
+    memset(buffer,'\0',BUFFLEN);
+    long offset = 0;
+    while (offset!=size){
+        size_t readnow = fread(buffer+offset, 1,1, fp);
         if (readnow == 0){
             printf("Read unsuccessful \n");
             free(buffer);
             fclose(fp);
             exit(1);
-        }
-        fseek(fp,readnow,SEEK_CUR);
+    }
+            offset ++ ;
+    }
+    // printf("again: %s",buffer);
+    
+    fclose(fp);
+    printf("Socket read complete ready to send \n");
+    return size;
+}
+
+void file_transfer1(char* file, char* buffer, int size){
+    FILE *fp = fopen(file, "wb+");
+    if (fp == NULL){
+        perror("Error reading file\n");
+        exit(1);
+    }
+    long offset = 0;
+    // printf("Size of file: %ld\n",size);
+    // while (offset < size){
+    for (int i =0; i<size;i++){
+        size_t readnow = fwrite(buffer+offset, 1,1 , fp);
+        if (readnow < 0){
+            printf("Write unsuccessful \n");
+            free(buffer);
+            fclose(fp);
+            exit(1);}
         offset = offset+readnow;
     }
     fclose(fp);
-    printf("Socket read complete ready to send \n");
-}
-
-void file_transfer1(char* file, char* buffer){
-    int fp = open(file, O_RDWR | O_APPEND | O_CREAT | O_SYNC, 0644);
-    if (fp == -1){
-        perror("Error writing file\n");
-        exit(1);
-    }
-    off_t offset = 0;
-    long size = strlen(buffer);
-    printf("%ld",size);
-    int t =0;
-    while (offset < size){
-        ssize_t readnow = pwrite(fp, buffer + offset, 10, offset);
-        if (readnow < 0){
-            printf("Read unsuccessful \n");
-            free(buffer);
-            close(fp);
-            exit(1);
-        }
-        printf("%d",t++);
-        offset = offset+readnow;
-    }
-    close(fp);
     printf("File write complete \n");
 }
 
@@ -83,7 +82,7 @@ int main()
 {
    char *buffer = (char* )malloc(BUFFLEN * sizeof(char));
     memset(buffer,'\0', BUFFLEN);
-    strcpy(buffer,"text.txt");
+    strcpy(buffer,"anh.jpeg");
 //    const char *buffer1 = "/home/phuongnam/text.txt";
 //     if (access(buffer,F_OK)==0) printf("Exist");
 //     else printf("No");
@@ -96,10 +95,13 @@ int main()
     memset(buffer,'\0',BUFFLEN);
     strcpy(buffer,path_buffer);
 
-    file_transfer(path_buffer);
-    file_transfer1("text.txt",buffer);
+    long size = file_transfer(buffer);
+    file_transfer1("anh.jpeg",buffer, size);
     free(path_buffer);
     free(buffer);
+    char msg[123]="12354";
+
+    printf("%lld",atoll(msg));
     return 0;
 
 }
