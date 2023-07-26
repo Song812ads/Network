@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
-#define BUFFLEN 10000
+#define BUFFLEN 5000
 
 void pipebroke()
 {
@@ -162,7 +162,7 @@ int main(int argc, char **argv){
             exit(1);
         }
         memset(msg,'\0',30);                   
-        if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
+        if(recv(clientSocketfd,msg,30,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");

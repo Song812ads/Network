@@ -22,7 +22,7 @@ void exithandler()
     exit(EXIT_FAILURE);
 }
 
-void file_transfer(char* file, char* buffer, int size){
+void file_transfer(char* file, char* buffer, long size){
     FILE *fp = fopen(file, "wb+");
     if (fp == NULL){
         perror("Error reading file\n");
@@ -112,7 +112,7 @@ int main(int argc, char **argv){
     }
         long size = atol(buffer);
         memset(buffer,'\0',BUFFLEN);                   
-        strcpy(buffer,"size");
+        strcpy(buffer,"sizeee");
         if (send(socketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send success read file signal");  
             free(buffer);
@@ -125,6 +125,7 @@ int main(int argc, char **argv){
             exit(1);
         }
         printf("Buffer: %s\n",buffer);
+        printf("Size from server: %ld",size);
         file_transfer(argv[3],buffer,size);
 
     }
