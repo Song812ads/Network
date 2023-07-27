@@ -130,9 +130,8 @@ int main(int argc, char **argv){
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send access error signal");
             free(buffer);
-            exit(1); 
+            goto end; 
     }}
-
     else {
         memset(buffer,'\0',BUFFLEN);                   
         strcpy(buffer,"Success");
@@ -140,61 +139,61 @@ int main(int argc, char **argv){
             printf("Fail to send success read file signal");  
             free(buffer);
             exit(1);
-        }
+        }}
 
-        memset(buffer,'\0',BUFFLEN);                   
-        if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
+    memset(buffer,'\0',BUFFLEN);                   
+    if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
     {
         printf(" Knowing the status of the file on server side failed\n");
         perror("recv failed");
-        exit(1);
+        goto end;
     }
-        if (strcmp(buffer,"Ready")==0){
-        
-        while (1){     
-            memset(buffer,'\0',BUFFLEN);
-            strcpy(buffer,path_buffer);
-            free(path_buffer);
-            long  size = file_transfer(buffer);
-            char *msg = malloc(30*sizeof(char));
-            sprintf(msg,"%ld",size);
-            printf("Size from server: %ld \n",size);
-            if (send(clientSocketfd,msg,strlen(msg),0)<0){
-                printf("Fail to send file read");  
-                free(buffer);
-                exit(1);
+    if (strcmp(buffer,"Ready")!=0){
+        perror("Client not ready to receive");
+    }
+    while (1){     
+        memset(buffer,'\0',BUFFLEN);
+        strcpy(buffer,path_buffer);
+        long  size = file_transfer(buffer);
+        char *msg = malloc(30*sizeof(char));
+        sprintf(msg,"%ld",size);
+        printf("Size from server: %ld \n",size);
+        if (send(clientSocketfd,msg,strlen(msg),0)<0){
+            printf("Fail to send file read");  
+            goto end;
         }
         memset(msg,'\0',30);                   
         if(recv(clientSocketfd,msg,30,0)<0)
-    {
-        printf(" Knowing the status of the file on server side failed\n");
-        perror("recv failed");
-        exit(1);
-    }
+        {
+            printf(" Knowing the status of the file on server side failed\n");
+            perror("recv failed");
+            goto end;
+        }
         if (strcmp(msg,"size") == 0){
         if (send(clientSocketfd,buffer,BUFFLEN,0)<0){
             printf("Fail to send file read");  
-            free(buffer);
-            exit(1);
+            goto end;
         }}
+        
+        // Nếu size >= BUFFLEN, client sẽ hiểu là sẽ còn gửi tiếp
 
-        //Wait for client reponse download all current on buffer:
-
-        //Check đã đủ chưa nếu 
-        if (size != BUFFLEN){
-
-            break;
+        memset(buffer,'\0',BUFFLEN);                   
+        if(recv(clientSocketfd,buffer,BUFFLEN,0)<0)
+        {
+            printf(" Knowing the status of the file on server side failed\n");
+            perror("recv failed");
+            goto end;
         }
-
-        else {
-
-            continue;
+        if strcmp((buffer,"Complete") != 0){
+            if (size<BUFFLEN){
+                printf("Đã gửi hết nội dung file");
+                goto end;
+            }
         }
-        } 
-
-
         }
+end: 
     free(buffer);
+    free(path_buffer);
     close(clientSocketfd);
     close(serverSocketfd);
 
